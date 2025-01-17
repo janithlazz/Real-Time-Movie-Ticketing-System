@@ -1,4 +1,12 @@
-public class Admin {
+public class Admin extends User{
+    public Admin(String email, String password) {
+        super(email, password);
+    }
+
+    public boolean isAdmin(){
+        return  true;
+    }
+
     private void addMovie(){
 
     }

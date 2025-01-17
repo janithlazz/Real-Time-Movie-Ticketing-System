@@ -1,6 +1,6 @@
 public class Customer extends User{
-    public Customer(String userId, String name, String email, int phoneNumber, String password) {
-        super(userId, name, email, phoneNumber, password);
+    public Customer(String email, String password) {
+        super(email, password);
     }
 
     private void bookTicket(){
