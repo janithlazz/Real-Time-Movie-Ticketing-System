@@ -10,7 +10,8 @@ public class Main {
         do {
             System.out.println("Welcome to the Movie Booking System");
             System.out.println("1. Login");
-            System.out.println("2. Exit");
+            System.out.println("2. Registration");
+            System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
