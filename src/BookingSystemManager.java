@@ -13,7 +13,11 @@ public class BookingSystemManager {
         this.theaters = new ArrayList<>();
         this.tickets = new ArrayList<>();
     }
-    public void registerUser(User user) {
+    public void registerAdmin(String email, String password) {
+
+        System.out.println("User registered successfully!");
+    }
+    public void registerCustomer(String email, String password) {
 
         System.out.println("User registered successfully!");
     }

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    BookingSystemManager bookingSystemManager = new BookingSystemManager();
+    static BookingSystemManager bookingSystemManager = new BookingSystemManager();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -27,8 +27,12 @@ public class Main {
                         }
                     }
                     break;
+                case 2:  // Registration option
+                    registration();
+                    System.out.println("User registered successfully!");
+                    break;
 
-                case 2: // Exit option
+                case 3: // Exit option
                     System.out.println("Goodbye!");
                     break;
 
@@ -39,7 +43,7 @@ public class Main {
         } while (choice != 2); // Loop until the user chooses to exit
     }
     private static User loginUser() {
-        BookingSystemManager bookingSystemManager = new BookingSystemManager();
+
         Scanner logUser = new Scanner(System.in);
 
         System.out.print("Enter your email: ");
@@ -70,78 +74,48 @@ public class Main {
             return null;  // Return null if login failed
         }
     }
+    private static void registration(){
+        try (Scanner scanner = new Scanner(System.in)){
+            System.out.println("Welcome to user registration");
+            System.out.println("Select user type:\n1. Admin\n2. Customer");
 
+            int userInput = getUserType(scanner);
+            System.out.print("Enter your email for registration: ");
+            String email = scanner.nextLine();
 
+            System.out.print("Enter your password for registration: ");
+            String password = scanner.nextLine();
+            if(userInput == 1){
+                bookingSystemManager.registerAdmin(email,password);
+            } else if (userInput == 2) {
+                bookingSystemManager.registerCustomer(email,password);
+            }else {
+                System.out.println("Invalid user type selection. Registration aborted.");
+            }
+        }catch (Exception e){
+            System.out.println("An error occurred during registration: " + e.getMessage());
+        }
+    }
+    private static int getUserType(Scanner scanner){
+        while (true){
+            System.out.println("Enter your choice (1 for Admin, 2 for Customer): ");
+            if(scanner.hasNextInt()){
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                if(choice == 1 || choice == 2){
+                    return choice;
+                }
+                else {
+                    scanner.nextLine();
+                }
+                System.out.println("Invalid input. Please enter 1 for Admin or 2 for Customer.");
+            }
 
-
-
+        }
+    }
 }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    public static void main(String[] args) {
-//
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println("Welcome to the BOOK_MY_SHOW");
-//        // Main Menu
-//        System.out.println("1. Login");
-//        System.out.println("2. Register New User");
-//        System.out.print("Choose an option: ");
-//        int choice = scanner.nextInt();
-//        if(choice == 1){
-//            System.out.print("Enter your email: ");
-//            String email = scanner.nextLine();
-//            System.out.print("Enter your password: ");
-//            String password = scanner.nextLine();
-//            User loggedInUser = bookingSystemManager.loginUser(email,password);
-//            if(loggedInUser == null){
-//                System.out.println("Invalid credentials! Please try again.");
-//                return;
-//            }
-//            if(loggedInUser.isAdmin()){
-//                System.out.println("Welcome, Admin!");
-//                Admin admin = (Admin) loggedInUser;
-//
-//            }
-//        }else {
-//
-//        }
-//
-//        private static  void User loginUser(){
-//            Scanner logUser = new Scanner(System.in);
-//            System.out.print("Enter your email: ");
-//            String email = logUser.next();
-//            System.out.print("Enter your password: ");
-//            String password = logUser.next();
-//        }
-//
-//
-//
-//
-//    }
