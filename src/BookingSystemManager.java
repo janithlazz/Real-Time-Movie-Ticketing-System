@@ -2,24 +2,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingSystemManager {
-    private List<User> users;
+    private List<User> adminUsers;
+    private List<User> customerUsers;
     private List<Movie> movies;
     private List<Theater> theaters;
     private List<Ticket> tickets;
 
+    ArrayList<User> adminUserDataList = new ArrayList<>()
+
     public void BookingSystem() {
-        this.users = new ArrayList<>();
+        this.adminUsers = new ArrayList<>();
+        this.customerUsers = new ArrayList<>();
         this.movies = new ArrayList<>();
         this.theaters = new ArrayList<>();
         this.tickets = new ArrayList<>();
     }
-    public void registerAdmin(String email, String password) {
+    public void registerAdmin(User user) {
 
-        System.out.println("User registered successfully!");
+        System.out.println("Admin User registered successfully!");
+        adminUsers.add(user);
     }
-    public void registerCustomer(String email, String password) {
+    public void registerCustomer(User user) {
 
-        System.out.println("User registered successfully!");
+        System.out.println("Customer User registered successfully!");
+        customerUsers.add(user);
     }
     public User loginUser(String email, String password) {
 

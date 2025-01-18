@@ -75,6 +75,7 @@ public class Main {
         }
     }
     private static void registration(){
+
         try (Scanner scanner = new Scanner(System.in)){
             System.out.println("Welcome to user registration");
             System.out.println("Select user type:\n1. Admin\n2. Customer");
@@ -85,10 +86,13 @@ public class Main {
 
             System.out.print("Enter your password for registration: ");
             String password = scanner.nextLine();
+
+            User user = new User(email,password);
+
             if(userInput == 1){
-                bookingSystemManager.registerAdmin(email,password);
+                bookingSystemManager.registerAdmin(user);
             } else if (userInput == 2) {
-                bookingSystemManager.registerCustomer(email,password);
+                bookingSystemManager.registerCustomer(user);
             }else {
                 System.out.println("Invalid user type selection. Registration aborted.");
             }
