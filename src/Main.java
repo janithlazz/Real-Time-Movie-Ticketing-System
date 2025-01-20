@@ -1,47 +1,45 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     static BookingSystemManager bookingSystemManager = new BookingSystemManager();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int choice;
-        User loggedInUser = null; // To store the logged-in user
+        int choice = 0;
 
         do {
-            System.out.println("Welcome to the Movie Booking System");
-            System.out.println("1. Login");
-            System.out.println("2. Registration");
-            System.out.println("3. Exit");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
+            try {
+                System.out.println("Welcome to the Movie Booking System");
+                System.out.println("1. Login");
+                System.out.println("2. Registration");
+                System.out.println("3. Exit");
+                System.out.print("Enter your choice: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (choice) {
-                case 1:  // Login option
-                    loggedInUser = loginUser();
-                    if (loggedInUser != null) {
-                        if (loggedInUser.isAdmin()) {
-                            System.out.println("Welcome, Admin!");
-                            System.out.println("1. Add Movie = 1 \\n2.  Delete Movie  = 2\\n3. Add Theater = 3\\n4.  Delete Theater  = 4 \\n5.  Schedule Show = 5");
-                        } else {
-                            System.out.println("Welcome, Customer!");
-                        }
-                    }
-                    break;
-                case 2:  // Registration option
-                    registration();
-                    System.out.println("User registered successfully!");
-                    break;
-
-                case 3: // Exit option
-                    System.out.println("Goodbye!");
-                    break;
-
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                switch (choice) {
+                    case 1:  // Login option
+                        System.out.println("Login logic goes here.");
+                        break;
+                    case 2:  // Registration option
+                        registration(scanner);
+                        System.out.println("User registered successfully!");
+                        break;
+                    case 3: // Exit option
+                        System.out.println("Goodbye!");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            } catch (InputMismatchException letterIn) {
+                System.out.println("Only the above given integers are allowed! Please try again.");
+                scanner.nextLine(); // Clear the invalid input
             }
+        } while (choice != 3); // Loop until the user chooses to exit
 
-        } while (choice != 2); // Loop until the user chooses to exit
+        scanner.close(); // Close the Scanner
     }
+
     private static User loginUser() {
 
         Scanner logUser = new Scanner(System.in);
@@ -74,9 +72,9 @@ public class Main {
             return null;  // Return null if login failed
         }
     }
-    private static void registration(){
+    private static void registration(Scanner scanner){
 
-        try (Scanner scanner = new Scanner(System.in)){
+        try {
             System.out.println("Welcome to user registration");
             System.out.println("Select user type:\n1. Admin\n2. Customer");
 
