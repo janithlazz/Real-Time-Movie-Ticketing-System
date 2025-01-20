@@ -19,7 +19,7 @@ public class Main {
 
                 switch (choice) {
                     case 1:  // Login option
-                        System.out.println("Login logic goes here.");
+                        loginUser();
                         break;
                     case 2:  // Registration option
                         registration(scanner);
@@ -40,7 +40,7 @@ public class Main {
         scanner.close(); // Close the Scanner
     }
 
-    private static User loginUser() {
+    private static void loginUser() {
 
         Scanner logUser = new Scanner(System.in);
 
@@ -50,8 +50,10 @@ public class Main {
         System.out.print("Enter your password: ");
         String password = logUser.next();
 
+        User user = new User(email,password);
+
         // Perform the login process (checking email and password)
-        User loggedInUser = bookingSystemManager.loginUser(email, password);
+        User loggedInUser = bookingSystemManager.loginUser(user);
 
         // Check if login was successful
         if (loggedInUser != null) {
@@ -66,10 +68,8 @@ public class Main {
                 Customer customer = (Customer) loggedInUser;
             }
 
-            return loggedInUser;  // Return the logged-in user object
         } else {
             System.out.println("Invalid email or password. Please try again.");
-            return null;  // Return null if login failed
         }
     }
     private static void registration(Scanner scanner){

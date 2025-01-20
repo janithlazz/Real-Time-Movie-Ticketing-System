@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class User {
     private String email;
     private String password;
@@ -14,14 +16,35 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public boolean isAdmin(){
         return false;
     }
 
-    public boolean loginUser(String email, String password){
-        if(email == null || password == null){
-            return false;
-        }
-        return this.email.equals(email) && this.password.equals(password);
+//    public boolean loginUser(String email, String password){
+//        if(email == null || password == null){
+//            return false;
+//        }
+//        return this.email.equals(email) && this.password.equals(password);
+//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail(), getPassword());
     }
 }
