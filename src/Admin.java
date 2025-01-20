@@ -1,6 +1,7 @@
 public class Admin extends User{
-    public Admin(String email, String password) {
-        super(email, password);
+
+    public Admin(String email, String name, String password) {
+        super(email, name, password);
     }
 
     public boolean isAdmin(){

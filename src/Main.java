@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
-
+        User loggedInUser = null;
         do {
             try {
                 System.out.println("Welcome to the Movie Booking System");
@@ -44,22 +44,23 @@ public class Main {
 
         Scanner logUser = new Scanner(System.in);
 
-        System.out.print("Enter your email: ");
+        System.out.print("Enter your Name: ");
+        String name = logUser.next();
+
+        System.out.print("Enter your Email: ");
         String email = logUser.next();
 
-        System.out.print("Enter your password: ");
+        System.out.print("Enter your Password: ");
         String password = logUser.next();
 
-        User user = new User(email,password);
+        User user = new User(name,email,password);
 
         // Perform the login process (checking email and password)
         User loggedInUser = bookingSystemManager.loginUser(user);
 
-        // Check if login was successful
         if (loggedInUser != null) {
             System.out.println("Login successful.");
 
-            // Check the role of the logged-in user (Admin or Customer)
             if (loggedInUser.isAdmin()) {
                 System.out.println("Welcome, Admin!");
 //                Admin admin = (Admin) loggedInUser;
@@ -76,21 +77,24 @@ public class Main {
 
         try {
             System.out.println("Welcome to user registration");
-            System.out.println("Select user type:\n1. Admin\n2. Customer");
 
+            System.out.println("Select user type:\n1. Admin\n2. Customer");
             int userInput = getUserType(scanner);
+
+            System.out.print("Enter your Name: ");
+            String name = scanner.nextLine();
+
             System.out.print("Enter your email for registration: ");
             String email = scanner.nextLine();
 
             System.out.print("Enter your password for registration: ");
             String password = scanner.nextLine();
 
-            User user = new User(email,password);
 
             if(userInput == 1){
-                bookingSystemManager.registerAdmin(user);
+                bookingSystemManager.registerUser(name,email,password,userInput);
             } else if (userInput == 2) {
-                bookingSystemManager.registerCustomer(user);
+                bookingSystemManager.registerUser(name,email,password,userInput);
             }else {
                 System.out.println("Invalid user type selection. Registration aborted.");
             }
