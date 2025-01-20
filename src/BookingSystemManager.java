@@ -26,13 +26,14 @@ public class BookingSystemManager {
         System.out.println("Customer User registered successfully!");
     }
     public User loginUser(User user) {
-
+        System.out.println("Attempting login for user: " + user.getEmail());
         if(adminUserDataList.contains(user)){
             System.out.println("Valid email or password.");
+            return user;
         }else{
             System.out.println("Invalid email or password.");
+            return null;
         }
-        return null;
     }
 
     // Movie Management

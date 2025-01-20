@@ -62,10 +62,10 @@ public class Main {
             // Check the role of the logged-in user (Admin or Customer)
             if (loggedInUser.isAdmin()) {
                 System.out.println("Welcome, Admin!");
-                Admin admin = (Admin) loggedInUser;
+//                Admin admin = (Admin) loggedInUser;
             } else {
                 System.out.println("Welcome, Customer!");
-                Customer customer = (Customer) loggedInUser;
+//                Customer customer = (Customer) loggedInUser;
             }
 
         } else {
