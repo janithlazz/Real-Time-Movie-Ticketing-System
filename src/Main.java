@@ -107,16 +107,17 @@ public class Main {
             System.out.println("Enter your choice (1 for Admin, 2 for Customer): ");
             if(scanner.hasNextInt()){
                 int choice = scanner.nextInt();
-                scanner.nextLine();
                 if(choice == 1 || choice == 2){
                     return choice;
                 }
                 else {
-                    scanner.nextLine();
+                    System.out.println("Invalid input. Please enter 1 for Admin or 2 for Customer.");
                 }
-                System.out.println("Invalid input. Please enter 1 for Admin or 2 for Customer.");
-            }
 
+            }else{
+                System.out.println("Letters or special characters are not allowed. Please enter 1 for Admin or 2 for Customer.");
+                scanner.nextLine();
+            }
         }
     }
 }
