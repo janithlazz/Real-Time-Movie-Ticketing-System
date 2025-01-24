@@ -31,22 +31,12 @@ public class BookingSystemManager {
         }
         return true;
     }
-//    public void registerAdmin(User user) {
-//
-//        System.out.println("Admin User registered successfully!");
-//        adminUserDataList.add(user);
-//        System.out.println(adminUserDataList);
-//    }
-//    public void registerCustomer(User user) {
-//        customerUserDataList.add(user);
-//        System.out.println("Customer User registered successfully!");
-//    }
+
 public User loginUser(User user) {
     System.out.println("Attempting login for user: " + user.getEmail());
 
     for (User existingUser : userDataList) {
         if (existingUser.getEmail().equalsIgnoreCase(user.getEmail()) && existingUser.getPassword().equals(user.getPassword())) {
-            System.out.println("Login successful!");
             return existingUser;
         }
     }

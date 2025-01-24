@@ -59,11 +59,11 @@ public class Main {
         User loggedInUser = bookingSystemManager.loginUser(user);
 
         if (loggedInUser != null) {
-            System.out.println("Login successful.");
 
             if (loggedInUser.isAdmin()) {
                 System.out.println("Welcome, Admin!");
-//                Admin admin = (Admin) loggedInUser;
+                System.out.println("Enter your choice (1 for Add movie, 2 for ): ");
+
             } else {
                 System.out.println("Welcome, Customer!");
 //                Customer customer = (Customer) loggedInUser;
@@ -119,9 +119,36 @@ public class Main {
 
         }
     }
+    private static void addMovie(Scanner scanner){
+        try {
+            System.out.println("Welcome to admin movie manager");
+
+            System.out.print("Enter movie Name: ");
+            String name = scanner.nextLine();
+
+            System.out.print("Enter your email for registration: ");
+            String email = scanner.nextLine();
+
+            System.out.print("Enter your password for registration: ");
+            String password = scanner.nextLine();
+
+
+//            if(userInput == 1){
+//                bookingSystemManager.registerUser(name,email,password,userInput);
+//            } else if (userInput == 2) {
+//                bookingSystemManager.registerUser(name,email,password,userInput);
+//            }else {
+//                System.out.println("Invalid user type selection. Registration aborted.");
+//            }
+        }catch (Exception e){
+            System.out.println("An error occurred during registration: " + e.getMessage());
+        }
+    }
 }
 
 
-
+//    Movie movie = new Movie(movieName)
+//    Movie movie = bookingSystemManager.addMovie(m);
+////                Admin admin = (Admin) loggedInUser;
 
 
