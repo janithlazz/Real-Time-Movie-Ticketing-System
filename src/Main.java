@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -91,10 +93,8 @@ public class Main {
             String password = scanner.nextLine();
 
 
-            if(userInput == 1){
-                bookingSystemManager.registerUser(name,email,password,userInput);
-            } else if (userInput == 2) {
-                bookingSystemManager.registerUser(name,email,password,userInput);
+            if(userInput == 1 || userInput == 2) {
+                bookingSystemManager.registerUser(name, email, password, userInput);
             }else {
                 System.out.println("Invalid user type selection. Registration aborted.");
             }
@@ -120,29 +120,50 @@ public class Main {
         }
     }
     private static void addMovie(Scanner scanner){
-        try {
-            System.out.println("Welcome to admin movie manager");
-
-            System.out.print("Enter movie Name: ");
-            String name = scanner.nextLine();
-
-            System.out.print("Enter your email for registration: ");
-            String email = scanner.nextLine();
-
-            System.out.print("Enter your password for registration: ");
-            String password = scanner.nextLine();
+        System.out.println("Welcome to admin movie manager");
+        System.out.println("How many movies do you want to add?");
+        int numberOfMovies = scanner.nextInt();
+        scanner.nextLine();
+        for(int i = 0; i < numberOfMovies; i++){
+            try {
 
 
-//            if(userInput == 1){
-//                bookingSystemManager.registerUser(name,email,password,userInput);
-//            } else if (userInput == 2) {
-//                bookingSystemManager.registerUser(name,email,password,userInput);
-//            }else {
-//                System.out.println("Invalid user type selection. Registration aborted.");
-//            }
-        }catch (Exception e){
-            System.out.println("An error occurred during registration: " + e.getMessage());
+                System.out.print("Enter movie Name : ");
+                String movieName = scanner.nextLine();
+
+                System.out.print("Enter director of the movie : ");
+                String director = scanner.nextLine();
+
+                System.out.print("Enter genre of the movie: ");
+                String genre = scanner.nextLine();
+
+                System.out.print("Enter language of the movie: ");
+                String language = scanner.nextLine();
+
+                System.out.print("Enter duration of the movie: ");
+                String duration = scanner.nextLine();
+
+                System.out.print("Enter country of the movie: ");
+                String country = scanner.nextLine();
+
+                System.out.print("Cast (comma-separated): ");
+                String castInput = scanner.nextLine();
+                List<String> cast = new ArrayList<>();
+                for (String actor : castInput.split(",")) {
+                    cast.add(actor.trim());
+                }
+
+                System.out.print("Please enter Description of the movie: ");
+                String description = scanner.nextLine();
+
+                bookingSystemManager.addMovie(movieName,director,genre,language,duration,country,cast,description);
+
+            }catch (Exception e){
+                System.out.println("An error occurred during registration: " + e.getMessage());
+            }
         }
+        scanner.close();
+
     }
 }
 

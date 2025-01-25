@@ -8,7 +8,7 @@ public class BookingSystemManager {
     private List<Ticket> tickets;
 
     ArrayList<User> userDataList = new ArrayList<>();
-//    ArrayList<User> customerUserDataList = new ArrayList<>();
+    ArrayList<Movie> movieDataList = new ArrayList<>();
 
     public void BookingSystem() {
         this.movies = new ArrayList<>();
@@ -46,9 +46,7 @@ public User loginUser(User user) {
 }
 
     // Movie Management
-    public void addMovie(Movie movie) {
-
-        System.out.println("Movie added: " + movie.getMovieName());
+    public void addMovie(String movieName, String director, String genre, String language, String duration,String country,List cast,String description) {
     }
 
     public List<Movie> searchMovies(String keyword) {
@@ -67,4 +65,5 @@ public User loginUser(User user) {
                 ", userDataList=" + userDataList +
                 '}';
     }
+
 }
