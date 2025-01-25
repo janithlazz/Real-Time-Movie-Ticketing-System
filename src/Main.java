@@ -67,20 +67,31 @@ public class Main {
 
             if (loggedInUser.isAdmin()) {
                 System.out.println("Welcome, Admin!");
-                System.out.println("Enter your choice (1 for Add movie, 2 for delete movie): ");
                 Scanner scanner = new Scanner(System.in);
-                try {
-                    int choice = scanner.nextInt();
-                    if(choice == 1){
-                        addMovie(scanner);
-                    } else if (choice == 2) {
-                        deleteMovie(scanner);
+                int choice = -1;
+                while (choice != 0){
+                    System.out.println("Enter your choice (1 for Add movie, 2 for delete movie, 0 for Main menu): ");
+                    try {
+                        choice = scanner.nextInt();
+                        scanner.nextLine();
+                        switch (choice) {
+                            case 1:
+                                addMovie(scanner);
+                                break;
+                            case 2:
+                                deleteMovie(scanner);
+                                break;
+                            case 0:
+                                System.out.println("Returning to the main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                        }
+                    }
+                    catch (Exception e){
+                        System.out.println("An error occurred during process: " + e.getMessage());
                     }
                 }
-                catch (Exception e){
-                    System.out.println("An error occurred during process: " + e.getMessage());
-                }
-
 
             } else {
                 System.out.println("Welcome, Customer!");

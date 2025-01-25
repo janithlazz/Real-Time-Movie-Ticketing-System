@@ -52,7 +52,12 @@ public User loginUser(User user) {
     }
 
     public void deleteMovie(String movieName) {
-        movieDataList.removeIf(movie -> movie.getMovieName().toLowerCase().contains(movieName.toLowerCase()));
+        boolean isRemoved = movieDataList.removeIf(deleteMovie -> deleteMovie.getMovieName().toLowerCase().contains(movieName.toLowerCase()));
+        if(isRemoved){
+            System.out.println("Movie Removed: " + movieName);
+        }else{
+            System.out.println("Invalid Movie Name");
+        }
     }
 
     public List<Movie> searchMovies(String keyword) {
