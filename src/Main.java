@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
-        User loggedInUser = null;
         do {
             try {
                 System.out.println("Welcome to the Movie Booking System");
@@ -68,12 +67,14 @@ public class Main {
 
             if (loggedInUser.isAdmin()) {
                 System.out.println("Welcome, Admin!");
-                System.out.println("Enter your choice (1 for Add movie, 2 for ): ");
+                System.out.println("Enter your choice (1 for Add movie, 2 for delete movie): ");
                 Scanner scanner = new Scanner(System.in);
                 try {
                     int choice = scanner.nextInt();
                     if(choice == 1){
                         addMovie(scanner);
+                    } else if (choice == 2) {
+                        deleteMovie(scanner);
                     }
                 }
                 catch (Exception e){
@@ -185,5 +186,11 @@ public class Main {
                 scanner.nextLine();
             }
         }
+    }
+
+    private  static void deleteMovie(Scanner movieName){
+        System.out.print("Please enter movie name for delete : ");
+        String deleteMovieName = movieName.nextLine();
+        bookingSystemManager.deleteMovie(deleteMovieName);
     }
 }

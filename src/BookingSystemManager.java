@@ -40,20 +40,28 @@ public User loginUser(User user) {
             return existingUser;
         }
     }
-
     System.out.println("Invalid email or password.");
     return null;
 }
 
     // Movie Management
-    public void addMovie(String movieName, String director, String genre, String language, String duration,String country,List cast,String description) {
+    public void addMovie(String movieName, String director, String genre, String language, String duration,String country,List<String>cast,String description) {
         Movie movie = new Movie(movieName,director,genre,language,duration,country,cast,description);
         movieDataList.add(movie);
         System.out.println("Movie added: " + movieName);
     }
 
+    public void deleteMovie(String movieName) {
+        movieDataList.removeIf(movie -> movie.getMovieName().toLowerCase().contains(movieName.toLowerCase()));
+    }
+
     public List<Movie> searchMovies(String keyword) {
         List<Movie> result = new ArrayList<>();
+        for (Movie movie:movieDataList) {
+            if(movie.getMovieName().toLowerCase().contains(keyword.toLowerCase())){
+                result.add(movie);
+            }
+        }
 
         return result;
     }
