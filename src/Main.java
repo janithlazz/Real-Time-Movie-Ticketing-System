@@ -16,30 +16,35 @@ public class Main {
                 System.out.println("2. Registration");
                 System.out.println("3. Exit");
                 System.out.print("Enter your choice: ");
-                choice = scanner.nextInt();
-                scanner.nextLine();
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
+                    scanner.nextLine(); // Clear the newline character
 
-                switch (choice) {
-                    case 1:  // Login option
-                        loginUser();
-                        break;
-                    case 2:  // Registration option
-                        registration(scanner);
-                        System.out.println("User registered successfully!");
-                        break;
-                    case 3: // Exit option
-                        System.out.println("Goodbye!");
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
+                    switch (choice) {
+                        case 1: // Login option
+                            loginUser();
+                            break;
+                        case 2: // Registration option
+                            registration(scanner);
+                            System.out.println("User registered successfully!");
+                            break;
+                        case 3: // Exit option
+                            System.out.println("Goodbye!");
+                            break;
+                        default:
+                            System.out.println("Invalid choice. Please try again.");
+                    }
+                } else {
+                    System.out.println("Only the above given integers are allowed! Please try again.");
+                    scanner.nextLine(); // Clear invalid input
                 }
             } catch (InputMismatchException letterIn) {
                 System.out.println("Only the above given integers are allowed! Please try again.");
-                scanner.nextLine(); // Clear the invalid input
+                scanner.nextLine();
             }
-        } while (choice != 3); // Loop until the user chooses to exit
+        } while (choice != 3);
 
-        scanner.close(); // Close the Scanner
+        scanner.close();
     }
 
     private static void loginUser() {
@@ -57,7 +62,6 @@ public class Main {
 
         User user = new User(name,email,password);
 
-        // Perform the login process (checking email and password)
         User loggedInUser = bookingSystemManager.loginUser(user);
 
         if (loggedInUser != null) {
@@ -65,10 +69,20 @@ public class Main {
             if (loggedInUser.isAdmin()) {
                 System.out.println("Welcome, Admin!");
                 System.out.println("Enter your choice (1 for Add movie, 2 for ): ");
+                Scanner scanner = new Scanner(System.in);
+                try {
+                    int choice = scanner.nextInt();
+                    if(choice == 1){
+                        addMovie(scanner);
+                    }
+                }
+                catch (Exception e){
+                    System.out.println("An error occurred during process: " + e.getMessage());
+                }
+
 
             } else {
                 System.out.println("Welcome, Customer!");
-//                Customer customer = (Customer) loggedInUser;
             }
 
         } else {
@@ -122,12 +136,21 @@ public class Main {
     private static void addMovie(Scanner scanner){
         System.out.println("Welcome to admin movie manager");
         System.out.println("How many movies do you want to add?");
-        int numberOfMovies = scanner.nextInt();
-        scanner.nextLine();
+
+        int numberOfMovies = 0;
+
+        while(true){
+            if(scanner.hasNextInt()){
+                numberOfMovies = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            }else{
+                System.out.println("Invalid input. Please enter a valid number:");
+                scanner.nextLine();
+            }
+        }
         for(int i = 0; i < numberOfMovies; i++){
             try {
-
-
                 System.out.print("Enter movie Name : ");
                 String movieName = scanner.nextLine();
 
@@ -152,7 +175,6 @@ public class Main {
                 for (String actor : castInput.split(",")) {
                     cast.add(actor.trim());
                 }
-
                 System.out.print("Please enter Description of the movie: ");
                 String description = scanner.nextLine();
 
@@ -160,16 +182,8 @@ public class Main {
 
             }catch (Exception e){
                 System.out.println("An error occurred during registration: " + e.getMessage());
+                scanner.nextLine();
             }
         }
-        scanner.close();
-
     }
 }
-
-
-//    Movie movie = new Movie(movieName)
-//    Movie movie = bookingSystemManager.addMovie(m);
-////                Admin admin = (Admin) loggedInUser;
-
-

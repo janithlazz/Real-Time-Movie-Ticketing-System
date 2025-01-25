@@ -47,6 +47,9 @@ public User loginUser(User user) {
 
     // Movie Management
     public void addMovie(String movieName, String director, String genre, String language, String duration,String country,List cast,String description) {
+        Movie movie = new Movie(movieName,director,genre,language,duration,country,cast,description);
+        movieDataList.add(movie);
+        System.out.println("Movie added: " + movieName);
     }
 
     public List<Movie> searchMovies(String keyword) {

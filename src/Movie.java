@@ -5,12 +5,12 @@ public class Movie {
     private String director;
     private  String genre;
     private  String language;
-    private  int duration;
+    private  String duration;
     private String Country;
     private List<String> cast;
     private String description;
 
-    public Movie(String movieName, String director, String genre, String language, int duration, String country, List<String> cast, String description) {
+    public Movie(String movieName, String director, String genre, String language, String duration, String country, List<String> cast, String description) {
         this.movieName = movieName;
         this.director = director;
         this.genre = genre;
@@ -53,11 +53,11 @@ public class Movie {
         this.language = language;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
