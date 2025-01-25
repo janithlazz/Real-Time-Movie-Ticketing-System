@@ -70,7 +70,7 @@ public class Main {
                 Scanner scanner = new Scanner(System.in);
                 int choice = -1;
                 while (choice != 0){
-                    System.out.println("Enter your choice (1 for Add movie, 2 for delete movie, 0 for Main menu): ");
+                    System.out.println("Enter your choice (1 for Add movie, 2 for delete movie, 3 for add new theater,4 for delete theater 0 for Main menu): ");
                     try {
                         choice = scanner.nextInt();
                         scanner.nextLine();
@@ -79,6 +79,12 @@ public class Main {
                                 addMovie(scanner);
                                 break;
                             case 2:
+                                deleteMovie(scanner);
+                                break;
+                            case 3:
+                                deleteMovie(scanner);
+                                break;
+                            case 4:
                                 deleteMovie(scanner);
                                 break;
                             case 0:
@@ -203,5 +209,38 @@ public class Main {
         System.out.print("Please enter movie name for delete : ");
         String deleteMovieName = movieName.nextLine();
         bookingSystemManager.deleteMovie(deleteMovieName);
+    }
+    private  static void addTheater(Scanner scanner){
+        System.out.println("Welcome to admin theater manager");
+        System.out.println("How many theaters do you want to add?");
+
+        int numberOfTheater = 0;
+
+        while(true){
+            if(scanner.hasNextInt()){
+                numberOfTheater = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            }else{
+                System.out.println("Invalid input. Please enter a valid number:");
+                scanner.nextLine();
+            }
+        }
+        for(int i = 0; i < numberOfTheater; i++){
+            try {
+                System.out.print("Enter Theater Name : ");
+                String movieName = scanner.nextLine();
+
+                System.out.print("Enter location of the theater : ");
+                String director = scanner.nextLine();
+
+                System.out.print("How many screen are there in the theater: ");
+                int numOfScreens = scanner.nextInt();
+                bookingSystemManager.addTheater(movieName,director,numOfScreens);
+            }catch (Exception e){
+                System.out.println("An error occurred during registration: " + e.getMessage());
+                scanner.nextLine();
+            }
+        }
     }
 }

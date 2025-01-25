@@ -9,6 +9,7 @@ public class BookingSystemManager {
 
     ArrayList<User> userDataList = new ArrayList<>();
     ArrayList<Movie> movieDataList = new ArrayList<>();
+    ArrayList<Theater> theatersDataList = new ArrayList<>();
 
     public void BookingSystem() {
         this.movies = new ArrayList<>();
@@ -59,11 +60,12 @@ public User loginUser(User user) {
             System.out.println("Invalid Movie Name");
         }
     }
-    public void addTheater(String movieName, String director, String genre, String language, String duration,String country,List<String>cast,String description) {
-        Movie movie = new Movie(movieName,director,genre,language,duration,country,cast,description);
-        movieDataList.add(movie);
-        System.out.println("Movie added: " + movieName);
+    public void addTheater(String theaterName, String location, int totalScreens) {
+        Theater theater = new Theater(theaterName,location,totalScreens);
+        theatersDataList.add(theater);
+        System.out.println("Theater added: " + theaterName);
     }
+
 
     //Customer controls
     public List<Movie> searchMovies(String keyword) {
