@@ -28,6 +28,18 @@ public class Theater {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public int getTotalScreens() {
+        return totalScreens;
+    }
+
     public List<Show> getShowsForMovie(Movie movie) {
         return movieShows.getOrDefault(movie, new ArrayList<>());
     }

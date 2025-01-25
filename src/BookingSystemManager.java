@@ -65,6 +65,14 @@ public User loginUser(User user) {
         theatersDataList.add(theater);
         System.out.println("Theater added: " + theaterName);
     }
+    public void deleteTheater(String theaterName) {
+        boolean isRemoved = theatersDataList.removeIf(deleteTheater -> deleteTheater.getName().toLowerCase().contains(theaterName.toLowerCase()));
+        if(isRemoved){
+            System.out.println("Movie Removed: " + theaterName);
+        }else{
+            System.out.println("Invalid Movie Name");
+        }
+    }
 
 
     //Customer controls
