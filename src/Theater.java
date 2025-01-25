@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Theater {
-    private  int theaterId;
     private  String name;
     private String location;
     private int totalScreens;
     private List<Screen>screens;
     private Map<Movie,List<Show>> movieShows; //each movie have multiple show times
 
-    public Theater(String name, String location, int totalScreens) {
-        this.theaterId = theaterId;
+    public Theater( String name, String location, int totalScreens) {
+
         this.name = name;
         this.location = location;
+        this.totalScreens = totalScreens;
         this.screens = new ArrayList<>();
         this.movieShows = new HashMap<>();
     }
@@ -33,7 +33,8 @@ public class Theater {
     }
 
     public void addMovieShow(Movie movie, Show show) {
-
+        movieShows.putIfAbsent(movie, new ArrayList<>());
+        movieShows.get(movie).add(show);
     }
 
     public void displayMoviesAndShows() {

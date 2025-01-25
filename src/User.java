@@ -40,13 +40,6 @@ public class User {
         return false;
     }
 
-//    public boolean loginUser(String email, String password){
-//        if(email == null || password == null){
-//            return false;
-//        }
-//        return this.email.equals(email) && this.password.equals(password);
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
