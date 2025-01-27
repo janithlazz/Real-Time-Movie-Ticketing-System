@@ -85,7 +85,7 @@ public class Main {
                                 addTheater(scanner);
                                 break;
                             case 4:
-                                deleteMovie(scanner);
+                                deleteTheater(scanner);
                                 break;
                             case 0:
                                 System.out.println("Returning to the main menu...");
@@ -242,5 +242,10 @@ public class Main {
                 scanner.nextLine();
             }
         }
+    }
+    private  static void deleteTheater(Scanner theaterName){
+        System.out.print("Please enter theater name for delete : ");
+        String deleteTheaterName = theaterName.nextLine();
+        bookingSystemManager.deleteTheater(deleteTheaterName);
     }
 }
