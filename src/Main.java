@@ -82,7 +82,7 @@ public class Main {
                                 deleteMovie(scanner);
                                 break;
                             case 3:
-                                deleteMovie(scanner);
+                                addTheater(scanner);
                                 break;
                             case 4:
                                 deleteMovie(scanner);
