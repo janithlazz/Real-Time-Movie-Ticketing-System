@@ -134,6 +134,7 @@ public class Main {
             System.out.println("An error occurred during registration: " + e.getMessage());
         }
     }
+
     private static int getUserType(Scanner scanner){
         while (true){
             System.out.println("Enter your choice (1 for Admin, 2 for Customer): ");
@@ -151,6 +152,8 @@ public class Main {
 
         }
     }
+
+    //Movie
     private static void addMovie(Scanner scanner){
         System.out.println("Welcome to admin movie manager");
         System.out.println("How many movies do you want to add?");
@@ -197,6 +200,7 @@ public class Main {
                 String description = scanner.nextLine();
 
                 bookingSystemManager.addMovie(movieName,director,genre,language,duration,country,cast,description);
+                bookingSystemManager.displayMovie();
 
             }catch (Exception e){
                 System.out.println("An error occurred during registration: " + e.getMessage());
@@ -204,12 +208,13 @@ public class Main {
             }
         }
     }
-
     private  static void deleteMovie(Scanner movieName){
         System.out.print("Please enter movie name for delete : ");
         String deleteMovieName = movieName.nextLine();
         bookingSystemManager.deleteMovie(deleteMovieName);
     }
+
+    //Theater
     private  static void addTheater(Scanner scanner){
         System.out.println("Welcome to admin theater manager");
         System.out.println("How many theaters do you want to add?");
@@ -237,6 +242,7 @@ public class Main {
                 System.out.print("How many screen are there in the theater: ");
                 int numOfScreens = scanner.nextInt();
                 bookingSystemManager.addTheater(movieName,director,numOfScreens);
+                bookingSystemManager.displayTheater();
             }catch (Exception e){
                 System.out.println("An error occurred during registration: " + e.getMessage());
                 scanner.nextLine();

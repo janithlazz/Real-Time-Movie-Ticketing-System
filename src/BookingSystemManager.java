@@ -83,8 +83,19 @@ public User loginUser(User user) {
                 result.add(movie);
             }
         }
-
         return result;
+    }
+    public void displayMovie(){
+        System.out.println("\nMovies in the list:");
+        for(Movie movie:movieDataList) {
+            System.out.println(movie);
+        }
+    }
+    public void displayTheater(){
+        System.out.println("\nTheaters in the list:");
+        for (Theater theater:theatersDataList) {
+            System.out.println(theater);
+        }
     }
 
     @Override
