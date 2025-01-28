@@ -85,6 +85,14 @@ public User loginUser(User user) {
         }
         return result;
     }
+    public Movie findMovieByTitle(String title){
+        for (Movie movie:movieDataList) {
+            if(movie.getMovieName().toLowerCase().contains(title.toLowerCase())){
+                return movie;
+            }
+        }
+        return null;
+    }
     public void displayMovie(){
         System.out.println("\nMovies in the list:");
         for(Movie movie:movieDataList) {
@@ -96,6 +104,38 @@ public User loginUser(User user) {
         for (Theater theater:theatersDataList) {
             System.out.println(theater);
         }
+    }
+    public Theater findTheaterByName(String theaterName){
+        System.out.println("Attempting add for screen for : " + theaterName);
+        for (Theater theater:theatersDataList) {
+            if(theater.getName().toLowerCase().contains(theaterName.toLowerCase())){
+                return theater;
+            }
+        }
+
+        return null;
+    }
+    public void displayAllTheaters(){
+        if(theaters.isEmpty()){
+            System.out.println("No theaters available in the system.");
+            return;
+        }
+        System.out.println("--- Theaters in the System ---");
+        for (Theater theater:theatersDataList) {
+            System.out.println("Name: " + theater.getName());
+            System.out.println("Location: " + theater.getLocation());
+            System.out.println("Total Screens: " + theater.getTotalScreens());
+
+            System.out.println("Screens:");
+            for (Screen screen : theater.getScreens()) {
+                System.out.println("    Screen ID: " + screen.getScreenId() +
+                        ", Capacity: " + screen.getCapacity() +
+                        ", Type: " + screen.getScreenType());
+            }
+
+        }
+
+
     }
 
     @Override
