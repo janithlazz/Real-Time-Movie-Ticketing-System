@@ -267,60 +267,67 @@ public class Main {
         String deleteTheaterName = theaterName.nextLine();
         bookingSystemManager.deleteTheater(deleteTheaterName);
     }
-    private  static void addScreenToTheater(){
+    private static void addScreenToTheater() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter theater name: ");
-        String theaterName = scanner.nextLine();
-        Theater theater = bookingSystemManager.findTheaterByName(theaterName);
-        if (theater == null) {
-            System.out.println("Theater not found.");
-            return;
-        }
-        System.out.print("Enter screen ID: ");
-        String screenId = scanner.nextLine();
-        System.out.print("Enter screen capacity: ");
-        int capacity = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        System.out.print("Enter screen type (e.g., IMAX, Standard): ");
-        String screenType = scanner.nextLine();
+        Theater theater = getTheaterByName(scanner);
+        if (theater == null) return;
+
+        String screenId = getInput(scanner, "Enter screen ID: ");
+        int capacity = getIntInput(scanner, "Enter screen capacity: ");
+        String screenType = getInput(scanner, "Enter screen type (e.g., IMAX, Standard): ");
+
         Screen screen = new Screen(screenId, capacity, screenType);
         theater.addScreen(screen);
         System.out.println("Screen added successfully!");
     }
+
     private static void addShowToScreen() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter theater name: ");
-        String theaterName = scanner.nextLine();
-        Theater theater = bookingSystemManager.findTheaterByName(theaterName);
+        Theater theater = getTheaterByName(scanner);
+        if (theater == null) return;
 
-        if (theater == null) {
-            System.out.println("Theater not found.");
-            return;
-        }
-
-        System.out.print("Enter screen ID: ");
-        String screenId = scanner.nextLine();
+        String screenId = getInput(scanner, "Enter screen ID: ");
         Screen screen = theater.findScreenById(screenId);
-
         if (screen == null) {
             System.out.println("Screen not found.");
             return;
         }
 
-        System.out.print("Enter movie title: ");
-        String movieTitle = scanner.nextLine();
+        String movieTitle = getInput(scanner, "Enter movie title: ");
         Movie movie = bookingSystemManager.findMovieByTitle(movieTitle);
-
         if (movie == null) {
             System.out.println("Movie not found.");
             return;
         }
 
-        System.out.print("Enter show time (e.g., 2:00 PM): ");
-        String showTime = scanner.nextLine();
-
+        String showTime = getInput(scanner, "Enter show time (e.g., 2:00 PM): ");
         Show show = new Show(movie, screen, showTime);
         theater.addMovieShow(movie, show);
         System.out.println("Show added successfully!");
+    }
+
+    // Helper Methods
+    private static Theater getTheaterByName(Scanner scanner) {
+        String theaterName = getInput(scanner, "Enter theater name: ");
+        Theater theater = bookingSystemManager.findTheaterByName(theaterName);
+        if (theater == null) {
+            System.out.println("Theater not found.");
+        }
+        return theater;
+    }
+
+    private static String getInput(Scanner scanner, String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine();
+    }
+
+    private static int getIntInput(Scanner scanner, String prompt) {
+        System.out.print(prompt);
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a valid integer.");
+            scanner.nextLine();
+            System.out.print(prompt);
+        }
+        return scanner.nextInt();
     }
 }
