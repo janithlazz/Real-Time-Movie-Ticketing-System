@@ -98,7 +98,7 @@ public class Main {
                                 addScreenToTheater();
                                 break;
                             case 6:
-                                deleteTheater(scanner);
+                                addShowToScreen();
                                 break;
                             case 0:
                                 System.out.println("Returning to the main menu...");
