@@ -86,6 +86,14 @@ public class Theater {
         return null; // Return null if no screen is found with the given ID
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Theater{" +
+                "name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", totalScreens=" + totalScreens +
+                ", screens=" + screens +
+                ", movieShows=" + movieShows +
+                '}';
+    }
 }

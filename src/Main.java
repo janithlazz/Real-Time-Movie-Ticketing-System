@@ -254,6 +254,7 @@ public class Main {
 
                 System.out.print("How many screen are there in the theater: ");
                 int numOfScreens = scanner.nextInt();
+                scanner.nextLine();
                 bookingSystemManager.addTheater(theaterName,theaterLocation,numOfScreens);
                 bookingSystemManager.displayTheater();
             }catch (Exception e){
@@ -274,6 +275,7 @@ public class Main {
 
         String screenId = getInput(scanner, "Enter screen ID: ");
         int capacity = getIntInput(scanner, "Enter screen capacity: ");
+        scanner.nextLine();
         String screenType = getInput(scanner, "Enter screen type (e.g., IMAX, Standard): ");
 
         Screen screen = new Screen(screenId, capacity, screenType);
