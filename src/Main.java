@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -5,7 +8,9 @@ import java.util.Scanner;
 
 public class Main {
     static BookingSystemManager bookingSystemManager = new BookingSystemManager();
+
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
         do {
@@ -13,7 +18,9 @@ public class Main {
                 System.out.println("Welcome to the Movie Booking System");
                 System.out.println("1. Login");
                 System.out.println("2. Registration");
-                System.out.println("3. Exit");
+                System.out.println("3. Save User Details");
+                System.out.println("4. Read User Details");
+                System.out.println("0. Exit");
                 System.out.print("Enter your choice: ");
                 if (scanner.hasNextInt()) {
                     choice = scanner.nextInt();
@@ -27,7 +34,11 @@ public class Main {
                             registration(scanner);
                             System.out.println("User registered successfully!");
                             break;
-                        case 3: // Exit option
+                        case 3: // Registration option
+                            fileWrite();
+                            System.out.println("User registered successfully!");
+                            break;
+                        case 0: // Exit option
                             System.out.println("Goodbye!");
                             break;
                         default:
@@ -37,11 +48,11 @@ public class Main {
                     System.out.println("Only the above given integers are allowed! Please try again.");
                     scanner.nextLine(); // Clear invalid input
                 }
-            } catch (InputMismatchException letterIn) {
+            } catch (InputMismatchException | IOException letterIn) {
                 System.out.println("Only the above given integers are allowed! Please try again.");
                 scanner.nextLine();
             }
-        } while (choice != 3);
+        } while (choice != 0);
 
         scanner.close();
     }
@@ -120,7 +131,7 @@ public class Main {
             System.out.println("Invalid email or password. Please try again.");
         }
     }
-    private static void registration(Scanner scanner){
+    private static void registration(Scanner scanner) {
 
         try {
             System.out.println("Welcome to user registration");
@@ -274,8 +285,7 @@ public class Main {
         if (theater == null) return;
 
         String screenId = getInput(scanner, "Enter screen ID: ");
-        int capacity = getIntInput(scanner, "Enter screen capacity: ");
-        scanner.nextLine();
+        int capacity = Integer.parseInt(getInput(scanner, "Enter screen capacity: "));
         String screenType = getInput(scanner, "Enter screen type (e.g., IMAX, Standard): ");
 
         Screen screen = new Screen(screenId, capacity, screenType);
@@ -331,5 +341,9 @@ public class Main {
             System.out.print(prompt);
         }
         return scanner.nextInt();
+    }
+    public static void fileWrite() throws IOException {
+        bookingSystemManager.saveUser("userLogins.txt");
+
     }
 }

@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,26 +12,25 @@ public class BookingSystemManager {
     ArrayList<Movie> movieDataList = new ArrayList<>();
     ArrayList<Theater> theatersDataList = new ArrayList<>();
 
+
+
     public void BookingSystem() {
         this.movies = new ArrayList<>();
         this.theaters = new ArrayList<>();
         this.tickets = new ArrayList<>();
     }
-    public boolean registerUser(String name, String email, String password, int userInputType){
+    public void registerUser(String name, String email, String password, int userInputType) {
         for(User user : userDataList){
             if(user.getEmail().equalsIgnoreCase(email)){
                 System.out.println("Registration failed, email already exists");
-                return false;
+                return;
             }
         }
         if(userInputType == 1){
             userDataList.add(new Admin(name,email,password));
         } else if (userInputType == 2) {
             userDataList.add(new Customer(name,email,password));
-        }else {
-            return false;
         }
-        return true;
     }
 
 public User loginUser(User user) {
@@ -135,8 +135,19 @@ public User loginUser(User user) {
 
         }
 
-
     }
+    public void saveUser(String s) throws IOException {
+        FileOutputStream f_out = new FileOutputStream("userLogins.txt");
+        ObjectOutputStream out = new ObjectOutputStream(f_out);
+        for (User user:userDataList) {
+            System.out.println(user.getName()+" User name save successfully");
+            out.writeObject(user);
+        }
+        out.flush();
+        f_out.close();
+        out.close();
+    }
+
 
     @Override
     public String toString() {
