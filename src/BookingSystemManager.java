@@ -64,6 +64,7 @@ public User loginUser(User user) {
         Theater theater = new Theater(theaterName,location,totalScreens);
         theatersDataList.add(theater);
         System.out.println("Theater added: " + theaterName);
+        displayAllTheaters();
     }
     public void deleteTheater(String theaterName) {
         boolean isRemoved = theatersDataList.removeIf(deleteTheater -> deleteTheater.getName().toLowerCase().contains(theaterName.toLowerCase()));
