@@ -43,9 +43,3 @@ public class Show {
         return false;
     }
 }
-
-
-
-//    addSceeenTo theater part add to the inside of the add theater class. like ask qustion how many screen have this thater, asnwer is 2, then first scren name is laux dolby sound screen, that have 200 seats, secon screern is imax screen, lke that
-//
-//        PVR theater have two scrren call
