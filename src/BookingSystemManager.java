@@ -149,6 +149,20 @@ public User loginUser(User user) {
         out.close();
     }
 
+    public void readUser(String s) throws IOException{
+        FileInputStream f_input = new FileInputStream("userLogins.txt");
+        ObjectInputStream out = new ObjectInputStream(f_input);
+        for(; ;){
+            try {
+                User user = (User) out.readObject();
+                userDataList.add(user);
+                System.out.println(user);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
     @Override
     public String toString() {
