@@ -34,7 +34,11 @@ public class Main {
                             break;
                         case 3: // Registration option
                             fileWrite();
-                            System.out.println("User registered successfully!");
+                            System.out.println("Save user successfully!");
+                            break;
+                        case 4: // Registration option
+                            fileRead();
+                            System.out.println(" Load user data successfully!");
                             break;
                         case 0: // Exit option
                             System.out.println("Goodbye!");
@@ -42,13 +46,9 @@ public class Main {
                         default:
                             System.out.println("Invalid choice. Please try again.");
                     }
-                } else {
-                    System.out.println("Only the above given integers are allowed! Please try again.");
-                    scanner.nextLine(); // Clear invalid input
                 }
             } catch (InputMismatchException | IOException letterIn) {
                 System.out.println("Only the above given integers are allowed! Please try again.");
-                scanner.nextLine();
             }
         } while (choice != 0);
 
@@ -344,7 +344,7 @@ public class Main {
         bookingSystemManager.saveUser("userLogins.txt");
 
     }
-    public static void fileRead(){
-
+    public static void fileRead() throws IOException {
+        bookingSystemManager.readUser("userLogins.txt");
     }
 }

@@ -157,8 +157,8 @@ public User loginUser(User user) {
                 User user = (User) out.readObject();
                 userDataList.add(user);
                 System.out.println(user);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+            } catch (EOFException | ClassNotFoundException e) {
+                break;
             }
         }
     }
