@@ -123,6 +123,31 @@ public class Main {
 
             } else {
                 System.out.println("Welcome, Customer!");
+                Scanner scanner = new Scanner(System.in);
+                int choice = -1;
+                while (choice != 0){
+                    System.out.println("\n--- Customer Menu ---");
+                    System.out.println("1. Book Ticket");
+                    System.out.println("0. Main manu");
+                    try {
+                        choice = scanner.nextInt();
+                        scanner.nextLine();
+                        switch (choice) {
+                            case 1:
+                                addMovie(scanner);
+                                break;
+                            case 0:
+                                System.out.println("Returning to the main menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                        }
+                    }
+                    catch (Exception e){
+                        System.out.println("An error occurred during process: " + e.getMessage());
+                    }
+                }
+
             }
 
         } else {
