@@ -134,7 +134,7 @@ public class Main {
                         scanner.nextLine();
                         switch (choice) {
                             case 1:
-                                addMovie(scanner);
+                                bookTicket();
                                 break;
                             case 0:
                                 System.out.println("Returning to the main menu...");
@@ -372,4 +372,6 @@ public class Main {
     public static void fileRead() throws IOException {
         bookingSystemManager.readUser("userLogins.txt");
     }
+
+    public  static void bookTicket(){}
 }
