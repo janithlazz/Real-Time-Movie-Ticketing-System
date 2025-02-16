@@ -373,5 +373,8 @@ public class Main {
         bookingSystemManager.readUser("userLogins.txt");
     }
 
-    public  static void bookTicket(){}
+    public  static void bookTicket(){
+        System.out.println("Welcome to the Ticket Booking System");
+        System.out.println("Please Enter Movie name: ");
+    }
 }
