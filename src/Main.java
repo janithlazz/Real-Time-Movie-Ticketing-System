@@ -376,5 +376,7 @@ public class Main {
     public  static void bookTicket(){
         System.out.println("Welcome to the Ticket Booking System");
         System.out.println("Please Enter Movie name: ");
+        System.out.println("Please Enter Theater name: ");
+        System.out.println("Please Select Screen: ");
     }
 }
