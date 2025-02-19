@@ -334,7 +334,6 @@ public class Main {
             System.out.println("Movie not found.");
             return;
         }
-
         String showTime = getInput(scanner, "Enter show time (e.g., 2:00 PM): ");
         Show show = new Show(movie, screen, showTime);
         theater.addMovieShow(movie, show);
@@ -377,13 +376,32 @@ public class Main {
         System.out.println("Welcome to the Ticket Booking System");
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please Enter Theater name: ");
-        Theater theater = getTheaterByName(scanner);
-
         String movieTitle = getInput(scanner, "Please Enter Movie name: ");
         Movie movie = bookingSystemManager.findMovieByTitle(movieTitle);
+        if(movie != null){
+            System.out.println("Please Enter Theater name: ");
+            Theater theater = getTheaterByName(scanner);
+            if(theater != null){
+                String screenName = getInput(scanner, "Enter screen name: ");
+                Screen screen = theater.findScreenById(screenName);
+                if(screen != null){
+                    System.out.println("How many seats do you want to book?");
+                    int numberOfSeats = 0;
+                    while(true){
+                        if(scanner.hasNextInt()){
+                            numberOfSeats = scanner.nextInt();
+                            scanner.nextLine();
+                            break;
+                        }else{
+                            System.out.println("Invalid input. Please enter a valid number:");
+                            scanner.nextLine();
+                        }
+                    }
 
-        String screenName = getInput(scanner, "Enter screen name: ");
-        Screen screen = theater.findScreenById(screenName);
+                }
+            }
+        }
+        System.out.println("Screen not found.");
+
     }
 }

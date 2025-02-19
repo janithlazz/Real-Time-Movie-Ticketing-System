@@ -12,13 +12,16 @@ public class BookingSystemManager {
     ArrayList<Movie> movieDataList = new ArrayList<>();
     ArrayList<Theater> theatersDataList = new ArrayList<>();
 
-
-
-    public void BookingSystem() {
-        this.movies = new ArrayList<>();
-        this.theaters = new ArrayList<>();
-        this.tickets = new ArrayList<>();
+    public BookingSystemManager() {
+        // Initialize the list to avoid null pointer exceptions
+        theaters = new ArrayList<>();
     }
+
+//    public void BookingSystem() {
+//        this.movies = new ArrayList<>();
+//        this.theaters = new ArrayList<>();
+//        this.tickets = new ArrayList<>();
+//    }
     public void registerUser(String name, String email, String password, int userInputType) {
         for(User user : userDataList){
             if(user.getEmail().equalsIgnoreCase(email)){
