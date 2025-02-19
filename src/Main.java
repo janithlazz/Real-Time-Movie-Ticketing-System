@@ -375,8 +375,15 @@ public class Main {
 
     public  static void bookTicket(){
         System.out.println("Welcome to the Ticket Booking System");
-        System.out.println("Please Enter Movie name: ");
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Please Enter Theater name: ");
-        System.out.println("Please Select Screen: ");
+        Theater theater = getTheaterByName(scanner);
+
+        String movieTitle = getInput(scanner, "Please Enter Movie name: ");
+        Movie movie = bookingSystemManager.findMovieByTitle(movieTitle);
+
+        String screenName = getInput(scanner, "Enter screen name: ");
+        Screen screen = theater.findScreenById(screenName);
     }
 }
