@@ -314,6 +314,7 @@ public class Main {
         Screen screen = new Screen(screenId, capacity, screenType);
         theater.addScreen(screen);
         System.out.println("Screen added successfully!");
+        bookingSystemManager.displayAllTheaters();
     }
 
     private static void addShowToScreen() {
@@ -338,6 +339,7 @@ public class Main {
         Show show = new Show(movie, screen, showTime);
         theater.addMovieShow(movie, show);
         System.out.println("Show added successfully!");
+        bookingSystemManager.displayAllTheaters();
     }
 
     // Helper Methods
@@ -355,15 +357,6 @@ public class Main {
         return scanner.nextLine();
     }
 
-    private static int getIntInput(Scanner scanner, String prompt) {
-        System.out.print(prompt);
-        while (!scanner.hasNextInt()) {
-            System.out.println("Invalid input. Please enter a valid integer.");
-            scanner.nextLine();
-            System.out.print(prompt);
-        }
-        return scanner.nextInt();
-    }
     public static void fileWrite() throws IOException {
         bookingSystemManager.saveUser("userLogins.txt");
 

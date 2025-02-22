@@ -76,6 +76,7 @@ public User loginUser(User user) {
         }else{
             System.out.println("Invalid Movie Name");
         }
+        displayAllTheaters();
     }
 
 
@@ -89,7 +90,7 @@ public User loginUser(User user) {
         }
         return result;
     }
-    public Movie findMovieByTitle(String title){
+    public Movie findMovieByTitle(String title)
         for (Movie movie:movieDataList) {
             if(movie.getMovieName().toLowerCase().contains(title.toLowerCase())){
                 return movie;
