@@ -51,16 +51,7 @@ public class Theater {
         movieShows.putIfAbsent(movie, new ArrayList<>());
         movieShows.get(movie).add(show);
     }
-
     public void displayMoviesAndShows() {
-        System.out.println("Theater: " + name + " - Location: " + location);
-        System.out.println("Total Screens: " + totalScreens);
-
-        // Display all screens
-        System.out.println("Screens:");
-        for (Screen screen : screens) {
-            System.out.println("    " + screen.getScreenId() + " - Capacity: " + screen.getCapacity() + " (" + screen.getScreenType() + ")");
-        }
 
         // Display all shows for each movie
         System.out.println("\nMovies and Showtimes:");
@@ -76,7 +67,13 @@ public class Theater {
             }
         }
     }
-
+    public void updateSeatCount(String screenId, int numberOfSeats){
+        for(Screen screen : screens){
+            if(screen.getScreenId().equalsIgnoreCase(screenId)){
+                for(Show show: shows)
+            }
+        }
+    }
     public Screen findScreenById(String screenId) {
         for (Screen screen : screens) {
             if (screen.getScreenId().equalsIgnoreCase(screenId)) {

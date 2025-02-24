@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BookingSystemManager {
     private List<User> adminUsers;
@@ -67,7 +68,6 @@ public User loginUser(User user) {
         Theater theater = new Theater(theaterName,location,totalScreens);
         theatersDataList.add(theater);
         System.out.println("Theater added: " + theaterName);
-        displayAllTheaters();
     }
     public void deleteTheater(String theaterName) {
         boolean isRemoved = theatersDataList.removeIf(deleteTheater -> deleteTheater.getName().toLowerCase().contains(theaterName.toLowerCase()));
@@ -76,7 +76,6 @@ public User loginUser(User user) {
         }else{
             System.out.println("Invalid Movie Name");
         }
-        displayAllTheaters();
     }
 
 
@@ -120,11 +119,16 @@ public User loginUser(User user) {
 
         return null;
     }
-    public void displayAllTheaters(){
-        if(theaters.isEmpty()){
-            System.out.println("No theaters available in the system.");
-            return;
+    public void bookTicket(String screenName, int numberOfSeats){
+        if(numberOfSeats > 0){
+            for (Theater theater:theatersDataList) {
+                theater.updateSeatCount(screenName ,numberOfSeats);
+
+            }
         }
+    }
+    public void displayMoviesAndShows() {
+        // Display all screens
         System.out.println("--- Theaters in the System ---");
         for (Theater theater:theatersDataList) {
             System.out.println("Name: " + theater.getName());
@@ -137,7 +141,7 @@ public User loginUser(User user) {
                         ", Capacity: " + screen.getCapacity() +
                         ", Type: " + screen.getScreenType());
             }
-
+            theater.displayMoviesAndShows();
         }
 
     }

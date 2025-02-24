@@ -18,6 +18,7 @@ public class Main {
                 System.out.println("2. Registration");
                 System.out.println("3. Save User Details");
                 System.out.println("4. Read User Details");
+                System.out.println("5. Now Showing");
                 System.out.println("0. Exit");
                 System.out.print("Enter your choice: ");
                 if (scanner.hasNextInt()) {
@@ -39,6 +40,9 @@ public class Main {
                         case 4: // Registration option
                             fileRead();
                             System.out.println(" Load user data successfully!");
+                            break;
+                        case 5: // Show currently showing films on theaters option
+                            nowShowingMovies();
                             break;
                         case 0: // Exit option
                             System.out.println("Goodbye!");
@@ -314,7 +318,6 @@ public class Main {
         Screen screen = new Screen(screenId, capacity, screenType);
         theater.addScreen(screen);
         System.out.println("Screen added successfully!");
-        bookingSystemManager.displayAllTheaters();
     }
 
     private static void addShowToScreen() {
@@ -339,17 +342,20 @@ public class Main {
         Show show = new Show(movie, screen, showTime);
         theater.addMovieShow(movie, show);
         System.out.println("Show added successfully!");
-        bookingSystemManager.displayAllTheaters();
     }
 
     // Helper Methods
     private static Theater getTheaterByName(Scanner scanner) {
-        String theaterName = getInput(scanner, "Enter theater name: ");
+        String theaterName = getInput(scanner, "Please Enter Theater name: ");
         Theater theater = bookingSystemManager.findTheaterByName(theaterName);
         if (theater == null) {
             System.out.println("Theater not found.");
         }
         return theater;
+    }
+
+    public  static void nowShowingMovies(){
+        bookingSystemManager.displayMoviesAndShows();
     }
 
     private static String getInput(Scanner scanner, String prompt) {
@@ -372,7 +378,6 @@ public class Main {
         String movieTitle = getInput(scanner, "Please Enter Movie name: ");
         Movie movie = bookingSystemManager.findMovieByTitle(movieTitle);
         if(movie != null){
-            System.out.println("Please Enter Theater name: ");
             Theater theater = getTheaterByName(scanner);
             if(theater != null){
                 String screenName = getInput(scanner, "Enter screen name: ");
@@ -383,6 +388,7 @@ public class Main {
                     while(true){
                         if(scanner.hasNextInt()){
                             numberOfSeats = scanner.nextInt();
+                            bookingSystemManager.bookTicket(screenName,numberOfSeats);
                             scanner.nextLine();
                             break;
                         }else{
