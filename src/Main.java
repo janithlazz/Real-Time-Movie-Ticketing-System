@@ -388,7 +388,7 @@ public class Main {
                     while(true){
                         if(scanner.hasNextInt()){
                             numberOfSeats = scanner.nextInt();
-                            bookingSystemManager.bookTicket(screenName,numberOfSeats);
+//                            bookingSystemManager.bookTicket(movieTitle,screenName,numberOfSeats);
                             scanner.nextLine();
                             break;
                         }else{

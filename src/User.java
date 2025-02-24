@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -40,6 +41,9 @@ public class User implements Serializable {
     public boolean isAdmin(){
         return false;
     }
+
+
+
 
     @Override
     public boolean equals(Object o) {

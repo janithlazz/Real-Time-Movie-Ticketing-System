@@ -15,6 +15,9 @@ public class Ticket {
         this.price = price;
     }
 
+    public Ticket(User user, Movie movie, Show show, int numSeats) {
+    }
+
     public String getTicketId() {
         return ticketId;
     }

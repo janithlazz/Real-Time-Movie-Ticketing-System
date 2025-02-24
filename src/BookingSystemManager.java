@@ -119,14 +119,28 @@ public User loginUser(User user) {
 
         return null;
     }
-    public void bookTicket(String screenName, int numberOfSeats){
-        if(numberOfSeats > 0){
-            for (Theater theater:theatersDataList) {
-                theater.updateSeatCount(screenName ,numberOfSeats);
+    public boolean bookTicket(Customer customer, Movie movie, String showTime, int numSeats) {
+        for (Theater theater : theaters) { // Loop through theaters
+            List<Show> shows = theater.getShowsForMovie(movie);
 
+            for (Show show : shows) {
+                if (show.getTime().equals(showTime)) { // Find the correct show
+                    if (show.bookSeats(numSeats)) { // Call the bookSeats method
+                        Ticket ticket = new Ticket(customer, movie, show, numSeats);
+                        customer.addToBookingHistory(ticket);
+                        System.out.println("Booking successful! Your ticket is confirmed.");
+                        return true;
+                    } else {
+                        System.out.println("Sorry, not enough seats available.");
+                        return false;
+                    }
+                }
             }
         }
+        System.out.println("No matching show found.");
+        return false;
     }
+
     public void displayMoviesAndShows() {
         // Display all screens
         System.out.println("--- Theaters in the System ---");

@@ -1,15 +1,28 @@
+import java.util.List;
+
 public class Customer extends User{
 
     public Customer(String name, String email, String password) {
         super(name, email, password);
     }
 
-    private void bookTicket(){
+    private List<Ticket> bookingHistory;
+    public void addToBookingHistory(Ticket ticket) {
+        bookingHistory.add(ticket);
     }
-    private  void addToBookingHistory(){
-
+    // Method to display booking history
+    public void displayBookingHistory() {
+        if (bookingHistory.isEmpty()) {
+            System.out.println("No bookings found.");
+            return;
+        }
+        System.out.println("Booking History for " + getName() + ":");
+        for (Ticket ticket : bookingHistory) {
+            System.out.println(ticket.getDetails());
+        }
     }
-    private void getBookingHistory(){
 
+    public List<Ticket> getBookingHistory() {
+        return bookingHistory;
     }
 }
