@@ -6,12 +6,31 @@ public class User implements Serializable {
     private String email;
     private String name;
     private String password;
+    private List<Ticket> bookingHistory;
 
 
     public User(String email, String name, String password) {
         this.email = email;
         this.name = name;
         this.password = password;
+    }
+    // Method to display booking history
+    public void displayBookingHistory() {
+        if (bookingHistory.isEmpty()) {
+            System.out.println("No bookings found.");
+            return;
+        }
+        System.out.println("Booking History for " + getName() + ":");
+        for (Ticket ticket : bookingHistory) {
+            System.out.println(ticket.getDetails());
+        }
+    }
+    public void addToBookingHistory(Ticket ticket) {
+        bookingHistory.add(ticket);
+    }
+
+    public List<Ticket> getBookingHistory() {
+        return bookingHistory;
     }
 
     public String getEmail() {

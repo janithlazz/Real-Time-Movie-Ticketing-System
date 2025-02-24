@@ -138,7 +138,7 @@ public class Main {
                         scanner.nextLine();
                         switch (choice) {
                             case 1:
-                                bookTicket();
+                                bookTicket(user);
                                 break;
                             case 0:
                                 System.out.println("Returning to the main menu...");
@@ -371,36 +371,87 @@ public class Main {
         bookingSystemManager.readUser("userLogins.txt");
     }
 
-    public  static void bookTicket(){
-        System.out.println("Welcome to the Ticket Booking System");
+    public static void bookTicket(User user) {
+        System.out.println("🎟 Welcome to the Ticket Booking System 🎟");
         Scanner scanner = new Scanner(System.in);
 
-        String movieTitle = getInput(scanner, "Please Enter Movie name: ");
+        // Step 1: Get movie details
+        String movieTitle = getInput(scanner, "🎬 Please Enter Movie Name: ");
         Movie movie = bookingSystemManager.findMovieByTitle(movieTitle);
-        if(movie != null){
-            Theater theater = getTheaterByName(scanner);
-            if(theater != null){
-                String screenName = getInput(scanner, "Enter screen name: ");
-                Screen screen = theater.findScreenById(screenName);
-                if(screen != null){
-                    System.out.println("How many seats do you want to book?");
-                    int numberOfSeats = 0;
-                    while(true){
-                        if(scanner.hasNextInt()){
-                            numberOfSeats = scanner.nextInt();
-//                            bookingSystemManager.bookTicket(movieTitle,screenName,numberOfSeats);
-                            scanner.nextLine();
-                            break;
-                        }else{
-                            System.out.println("Invalid input. Please enter a valid number:");
-                            scanner.nextLine();
-                        }
-                    }
 
-                }
+        if (movie == null) {
+            System.out.println("Movie not found.");
+            return;
+        }
+
+        // Step 2: Get theater details
+        Theater theater = getTheaterByName(scanner);
+        if (theater == null) {
+            System.out.println("Theater not found.");
+            return;
+        }
+
+        // Step 3: Get screen details
+        String screenName = getInput(scanner, "📺 Enter Screen Name: ");
+        Screen screen = theater.findScreenById(screenName);
+        if (screen == null) {
+            System.out.println("Screen not found.");
+            return;
+        }
+
+        // Step 4: Select show time
+        System.out.println("Available Showtimes:");
+        List<Show> availableShows = theater.getShowsForMovie(movie);
+        if (availableShows.isEmpty()) {
+            System.out.println("No available shows for this movie.");
+            return;
+        }
+
+        for (Show show : availableShows) {
+            System.out.println("- " + show.getTime());
+        }
+
+        String showTime = getInput(scanner, "Enter Show Time: ");
+        Show selectedShow = null;
+
+        for (Show show : availableShows) {
+            if (show.getTime().equals(showTime)) {
+                selectedShow = show;
+                break;
             }
         }
-        System.out.println("Screen not found.");
 
+        if (selectedShow == null) {
+            System.out.println("No matching show found.");
+            return;
+        }
+
+        // Step 5: Enter number of seats
+        int numberOfSeats;
+        while (true) {
+            try {
+                System.out.print("Enter Number of Seats: ");
+                numberOfSeats = Integer.parseInt(scanner.nextLine());
+                if (numberOfSeats <= 0) {
+                    System.out.println("Please enter a valid number.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
+
+        // Step 6: Try to book the ticket
+        boolean success = selectedShow.bookSeats(numberOfSeats);
+        if (success) {
+            Ticket ticket = new Ticket(user, movie, selectedShow, numberOfSeats);
+            user.addToBookingHistory(ticket); // Store in user booking history
+            System.out.println("Booking Successful! Your Ticket is Confirmed.");
+            System.out.println(ticket.getDetails());
+        } else {
+            System.out.println("Booking Failed! Not enough seats available.");
+        }
     }
+
 }
