@@ -1,12 +1,11 @@
 public class Show {
-    private String id;
     private Movie movie; // Reference to Movie
     private String time; // Time of the show
     private int availableSeats;
     private Screen screen;
 
-    public Show(String id, Movie movie, String time, int availableSeats) {
-        this.id = id;
+    public Show( Movie movie, String time, int availableSeats) {
+
         this.movie = movie;
         this.time = time;
         this.availableSeats = availableSeats;

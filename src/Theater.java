@@ -25,7 +25,6 @@ public class Theater {
         }else{
             System.out.println("Cannot add more screens. Theater capacity reached.");
         }
-
     }
 
     public List<Screen> getScreens() {
@@ -67,13 +66,7 @@ public class Theater {
             }
         }
     }
-    public void updateSeatCount(String screenId, int numberOfSeats){
-        for(Screen screen : screens){
-            if(screen.getScreenId().equalsIgnoreCase(screenId)){
-                for(Show show: shows)
-            }
-        }
-    }
+
     public Screen findScreenById(String screenId) {
         for (Screen screen : screens) {
             if (screen.getScreenId().equalsIgnoreCase(screenId)) {

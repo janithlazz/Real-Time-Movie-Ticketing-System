@@ -18,25 +18,7 @@ public class Ticket {
     public Ticket(User user, Movie movie, Show show, int numSeats) {
     }
 
-    public String getTicketId() {
-        return ticketId;
-    }
 
-    public Show getShow() {
-        return show;
-    }
-
-    public int getSeatNumber() {
-        return seatNumber;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public double getPrice() {
-        return price;
-    }
 
     public String getDetails() {
         return "Ticket ID: " + ticketId +

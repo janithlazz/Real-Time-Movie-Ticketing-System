@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BookingSystemManager {
-    private List<User> adminUsers;
-    private List<Movie> movies;
     private List<Theater> theaters;
-    private List<Ticket> tickets;
 
     ArrayList<User> userDataList = new ArrayList<>();
     ArrayList<Movie> movieDataList = new ArrayList<>();
@@ -18,11 +15,6 @@ public class BookingSystemManager {
         theaters = new ArrayList<>();
     }
 
-//    public void BookingSystem() {
-//        this.movies = new ArrayList<>();
-//        this.theaters = new ArrayList<>();
-//        this.tickets = new ArrayList<>();
-//    }
     public void registerUser(String name, String email, String password, int userInputType) {
         for(User user : userDataList){
             if(user.getEmail().equalsIgnoreCase(email)){
@@ -37,18 +29,17 @@ public class BookingSystemManager {
         }
     }
 
-public User loginUser(User user) {
-    System.out.println("Attempting login for user: " + user.getEmail());
+    public User loginUser(User user) {
+        System.out.println("Attempting login for user: " + user.getEmail());
 
-    for (User existingUser : userDataList) {
-        if (existingUser.getEmail().equalsIgnoreCase(user.getEmail()) && existingUser.getPassword().equals(user.getPassword())) {
-            return existingUser;
+        for (User existingUser : userDataList) {
+            if (existingUser.getEmail().equalsIgnoreCase(user.getEmail()) && existingUser.getPassword().equals(user.getPassword())) {
+                return existingUser;
+            }
         }
+        System.out.println("Invalid email or password.");
+        return null;
     }
-    System.out.println("Invalid email or password.");
-    return null;
-}
-
     // Admin Movie Management
     public void addMovie(String movieName, String director, String genre, String language, String duration,String country,List<String>cast,String description) {
         Movie movie = new Movie(movieName,director,genre,language,duration,country,cast,description);
@@ -78,17 +69,7 @@ public User loginUser(User user) {
         }
     }
 
-
     //Customer controls
-    public List<Movie> searchMovies(String keyword) {
-        List<Movie> result = new ArrayList<>();
-        for (Movie movie:movieDataList) {
-            if(movie.getMovieName().toLowerCase().contains(keyword.toLowerCase())){
-                result.add(movie);
-            }
-        }
-        return result;
-    }
     public Movie findMovieByTitle(String title){
         for (Movie movie:movieDataList) {
             if(movie.getMovieName().toLowerCase().contains(title.toLowerCase())){
@@ -119,28 +100,6 @@ public User loginUser(User user) {
 
         return null;
     }
-    public boolean bookTicket(Customer customer, Movie movie, String showTime, int numSeats) {
-        for (Theater theater : theaters) { // Loop through theaters
-            List<Show> shows = theater.getShowsForMovie(movie);
-
-            for (Show show : shows) {
-                if (show.getTime().equals(showTime)) { // Find the correct show
-                    if (show.bookSeats(numSeats)) { // Call the bookSeats method
-                        Ticket ticket = new Ticket(customer, movie, show, numSeats);
-                        customer.addToBookingHistory(ticket);
-                        System.out.println("Booking successful! Your ticket is confirmed.");
-                        return true;
-                    } else {
-                        System.out.println("Sorry, not enough seats available.");
-                        return false;
-                    }
-                }
-            }
-        }
-        System.out.println("No matching show found.");
-        return false;
-    }
-
     public void displayMoviesAndShows() {
         // Display all screens
         System.out.println("--- Theaters in the System ---");
@@ -185,14 +144,10 @@ public User loginUser(User user) {
         }
     }
 
-
     @Override
     public String toString() {
         return "BookingSystemManager{" +
-                "adminUsers=" + adminUsers +
-                ", movies=" + movies +
                 ", theaters=" + theaters +
-                ", tickets=" + tickets +
                 ", userDataList=" + userDataList +
                 '}';
     }

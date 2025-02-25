@@ -18,31 +18,13 @@ public class Screen {
         return screenId;
     }
 
-    public void setScreenId(String screenId) {
-        this.screenId = screenId;
-    }
-
     public int getCapacity() {
         return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 
     public String getScreenType() {
         return screenType;
     }
 
-    public void setScreenType(String screenType) {
-        this.screenType = screenType;
-    }
 
-    public List<Show> getShows() {
-        return shows;
-    }
-
-    public void setShows(List<Show> shows) {
-        this.shows = shows;
-    }
 }

@@ -369,10 +369,11 @@ public class Main {
     }
     public static void fileRead() throws IOException {
         bookingSystemManager.readUser("userLogins.txt");
+
     }
 
     public static void bookTicket(User user) {
-        System.out.println("🎟 Welcome to the Ticket Booking System 🎟");
+        System.out.println("Welcome to the Ticket Booking System");
         Scanner scanner = new Scanner(System.in);
 
         // Step 1: Get movie details

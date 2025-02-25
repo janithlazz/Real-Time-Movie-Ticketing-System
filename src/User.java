@@ -14,47 +14,22 @@ public class User implements Serializable {
         this.name = name;
         this.password = password;
     }
-    // Method to display booking history
-    public void displayBookingHistory() {
-        if (bookingHistory.isEmpty()) {
-            System.out.println("No bookings found.");
-            return;
-        }
-        System.out.println("Booking History for " + getName() + ":");
-        for (Ticket ticket : bookingHistory) {
-            System.out.println(ticket.getDetails());
-        }
-    }
+
     public void addToBookingHistory(Ticket ticket) {
         bookingHistory.add(ticket);
     }
 
-    public List<Ticket> getBookingHistory() {
-        return bookingHistory;
-    }
 
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public boolean isAdmin(){
