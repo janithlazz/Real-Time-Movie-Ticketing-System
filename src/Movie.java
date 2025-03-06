@@ -25,66 +25,6 @@ public class Movie {
         return movieName;
     }
 
-    public void setMovieName(String movieName) {
-        this.movieName = movieName;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getCountry() {
-        return Country;
-    }
-
-    public void setCountry(String country) {
-        Country = country;
-    }
-
-    public List<String> getCast() {
-        return cast;
-    }
-
-    public void setCast(List<String> cast) {
-        this.cast = cast;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public String toString() {
         return "Movie{" +

@@ -2,52 +2,43 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class User implements Serializable {
-    private String email;
-    private String name;
-    private String password;
-    private List<Ticket> bookingHistory;
+
+abstract class User implements Serializable{
+    protected String userId;
+    protected String name;
+    protected String email;
+    protected String password;
+    protected boolean isLoggedIn;
+    protected List<Ticket> bookingHistory;
 
 
-    public User(String email, String name, String password) {
-        this.email = email;
+    public User(String userId, String name, String email, String password, boolean isLoggedIn) {
+        this.userId = userId;
         this.name = name;
+        this.email = email;
         this.password = password;
+        this.isLoggedIn = false;
     }
 
     public void addToBookingHistory(Ticket ticket) {
         bookingHistory.add(ticket);
     }
 
-
-    public String getEmail() {
-        return email;
+    public void login(){
+        System.out.println(name + "logged in successfully.");
+        isLoggedIn = true;
+    }
+    public void logout(){
+        System.out.println(name + "logout out successfully.");
+        isLoggedIn = false;
     }
 
-    public String getName() {
-        return name;
+    public boolean authenticate(String userId, String password) {
+        return this.userId.equals(userId) && this.password.equals(password);
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public boolean isAdmin(){
-        return false;
+    public boolean authenticate(String email) {
+        return  this.email.equals(email);
     }
 
 
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getEmail(), getPassword());
-    }
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BookingSystemManager {
+public class BookingSystemManager implements SystemManager {
     private List<Theater> theaters;
 
     ArrayList<User> userDataList = new ArrayList<>();
@@ -15,9 +15,10 @@ public class BookingSystemManager {
         theaters = new ArrayList<>();
     }
 
+    @Override
     public void registerUser(String name, String email, String password, int userInputType) {
         for(User user : userDataList){
-            if(user.getEmail().equalsIgnoreCase(email)){
+            if(user.authenticate(email)){
                 System.out.println("Registration failed, email already exists");
                 return;
             }
@@ -29,25 +30,30 @@ public class BookingSystemManager {
         }
     }
 
-    public User loginUser(User user) {
-        System.out.println("Attempting login for user: " + user.getEmail());
+    @Override
+    public void removeUser(String userID) {
 
+    }
+
+    public User loginUser(String userID , String password) {
         for (User existingUser : userDataList) {
-            if (existingUser.getEmail().equalsIgnoreCase(user.getEmail()) && existingUser.getPassword().equals(user.getPassword())) {
+            if (existingUser.authenticate(userID,password)) {
+                existingUser.login();
                 return existingUser;
             }
         }
         System.out.println("Invalid email or password.");
         return null;
     }
-    // Admin Movie Management
-    public void addMovie(String movieName, String director, String genre, String language, String duration,String country,List<String>cast,String description) {
-        Movie movie = new Movie(movieName,director,genre,language,duration,country,cast,description);
+
+    @Override
+    public void addEvent(Movie movie) {
         movieDataList.add(movie);
-        System.out.println("Movie added: " + movieName);
+        System.out.println("Movie added: " + movie.getMovieName());
     }
 
-    public void deleteMovie(String movieName) {
+    @Override
+    public void deleteEvent(String movieName) {
         boolean isRemoved = movieDataList.removeIf(deleteMovie -> deleteMovie.getMovieName().toLowerCase().contains(movieName.toLowerCase()));
         if(isRemoved){
             System.out.println("Movie Removed: " + movieName);
@@ -55,12 +61,16 @@ public class BookingSystemManager {
             System.out.println("Invalid Movie Name");
         }
     }
-    public void addTheater(String theaterName, String location, int totalScreens) {
+
+    @Override
+    public void addVenue(String theaterName, String location, int totalScreens) {
         Theater theater = new Theater(theaterName,location,totalScreens);
         theatersDataList.add(theater);
         System.out.println("Theater added: " + theaterName);
     }
-    public void deleteTheater(String theaterName) {
+
+    @Override
+    public void deleteVenue(String theaterName) {
         boolean isRemoved = theatersDataList.removeIf(deleteTheater -> deleteTheater.getName().toLowerCase().contains(theaterName.toLowerCase()));
         if(isRemoved){
             System.out.println("Movie Removed: " + theaterName);
@@ -69,28 +79,16 @@ public class BookingSystemManager {
         }
     }
 
-    //Customer controls
-    public Movie findMovieByTitle(String title){
-        for (Movie movie:movieDataList) {
-            if(movie.getMovieName().toLowerCase().contains(title.toLowerCase())){
-                return movie;
-            }
-        }
-        return null;
-    }
-    public void displayMovie(){
-        System.out.println("\nMovies in the list:");
-        for(Movie movie:movieDataList) {
-            System.out.println(movie);
-        }
-    }
-    public void displayTheater(){
+    @Override
+    public void displayVenue() {
         System.out.println("\nTheaters in the list:");
         for (Theater theater:theatersDataList) {
             System.out.println(theater);
         }
     }
-    public Theater findTheaterByName(String theaterName){
+
+    @Override
+    public Theater findVenueByName(String theaterName) {
         System.out.println("Attempting add for screen for : " + theaterName);
         for (Theater theater:theatersDataList) {
             if(theater.getName().toLowerCase().contains(theaterName.toLowerCase())){
@@ -100,7 +98,19 @@ public class BookingSystemManager {
 
         return null;
     }
-    public void displayMoviesAndShows() {
+
+    @Override
+    public Movie findEventByName(String title) {
+        for (Movie movie:movieDataList) {
+            if(movie.getMovieName().toLowerCase().contains(title.toLowerCase())){
+                return movie;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void displayEvent() {
         // Display all screens
         System.out.println("--- Theaters in the System ---");
         for (Theater theater:theatersDataList) {
@@ -116,13 +126,13 @@ public class BookingSystemManager {
             }
             theater.displayMoviesAndShows();
         }
-
     }
+
     public void saveUser(String s) throws IOException {
         FileOutputStream f_out = new FileOutputStream("userLogins.txt");
         ObjectOutputStream out = new ObjectOutputStream(f_out);
         for (User user:userDataList) {
-            System.out.println(user.getName()+" User name save successfully");
+            System.out.println(user.name+" User name save successfully");
             out.writeObject(user);
         }
         out.flush();
@@ -130,7 +140,7 @@ public class BookingSystemManager {
         out.close();
     }
 
-    public void readUser(String s) throws IOException{
+    public void readUser(String s) throws IOException {
         FileInputStream f_input = new FileInputStream("userLogins.txt");
         ObjectInputStream out = new ObjectInputStream(f_input);
         for(; ;){

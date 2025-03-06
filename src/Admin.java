@@ -8,16 +8,5 @@ public class Admin extends User{
         return  true;
     }
 
-    private void addMovie(){
 
-    }
-    private void addTheater(){
-
-    }
-    private void scheduleShow(){
-
-    }
-    private void removeMovie(){
-
-    }
 }

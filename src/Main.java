@@ -27,7 +27,7 @@ public class Main {
 
                     switch (choice) {
                         case 1: // Login option
-                            loginUser();
+                            loginUserToSystem();
                             break;
                         case 2: // Registration option
                             registration(scanner);
@@ -59,26 +59,21 @@ public class Main {
         scanner.close();
     }
 
-    private static void loginUser() {
+    private static void loginUserToSystem() {
 
         Scanner logUser = new Scanner(System.in);
 
         System.out.print("Enter your Name: ");
         String name = logUser.next();
 
-        System.out.print("Enter your Email: ");
-        String email = logUser.next();
-
         System.out.print("Enter your Password: ");
         String password = logUser.next();
 
-        User user = new User(name,email,password);
 
-        User loggedInUser = bookingSystemManager.loginUser(user);
 
+        User loggedInUser = bookingSystemManager.loginUser(name,password);
         if (loggedInUser != null) {
-
-            if (loggedInUser.isAdmin()) {
+            if (loggedInUser instanceof Admin) {
                 System.out.println("Welcome, Admin!");
                 Scanner scanner = new Scanner(System.in);
                 int choice = -1;
@@ -125,7 +120,7 @@ public class Main {
                     }
                 }
 
-            } else {
+            } else if (loggedInUser instanceof Customer){
                 System.out.println("Welcome, Customer!");
                 Scanner scanner = new Scanner(System.in);
                 int choice = -1;
@@ -138,7 +133,7 @@ public class Main {
                         scanner.nextLine();
                         switch (choice) {
                             case 1:
-                                bookTicket(user);
+//                                bookTicket(user);
                                 break;
                             case 0:
                                 System.out.println("Returning to the main menu...");
@@ -250,8 +245,9 @@ public class Main {
                 System.out.print("Please enter Description of the movie: ");
                 String description = scanner.nextLine();
 
-                bookingSystemManager.addMovie(movieName,director,genre,language,duration,country,cast,description);
-                bookingSystemManager.displayMovie();
+                Movie movie = new Movie(movieName,director,genre,language,duration,country,cast,description);
+                bookingSystemManager.addEvent(movie);
+                bookingSystemManager.displayEvent();
 
             }catch (Exception e){
                 System.out.println("An error occurred during registration: " + e.getMessage());
@@ -262,7 +258,7 @@ public class Main {
     private  static void deleteMovie(Scanner movieName){
         System.out.print("Please enter movie name for delete : ");
         String deleteMovieName = movieName.nextLine();
-        bookingSystemManager.deleteMovie(deleteMovieName);
+        bookingSystemManager.deleteEvent(deleteMovieName);
     }
 
     //Theater
@@ -293,8 +289,9 @@ public class Main {
                 System.out.print("How many screen are there in the theater: ");
                 int numOfScreens = scanner.nextInt();
                 scanner.nextLine();
-                bookingSystemManager.addTheater(theaterName,theaterLocation,numOfScreens);
-                bookingSystemManager.displayTheater();
+                bookingSystemManager.addVenue(theaterName,theaterLocation,numOfScreens);
+                //display Theater
+                bookingSystemManager.displayVenue();
             }catch (Exception e){
                 System.out.println("An error occurred during registration: " + e.getMessage());
                 scanner.nextLine();
@@ -304,7 +301,7 @@ public class Main {
     private  static void deleteTheater(Scanner theaterName){
         System.out.print("Please enter theater name for delete : ");
         String deleteTheaterName = theaterName.nextLine();
-        bookingSystemManager.deleteTheater(deleteTheaterName);
+        bookingSystemManager.deleteVenue(deleteTheaterName);
     }
     private static void addScreenToTheater() {
         Scanner scanner = new Scanner(System.in);
@@ -333,7 +330,7 @@ public class Main {
         }
 
         String movieTitle = getInput(scanner, "Enter movie title: ");
-        Movie movie = bookingSystemManager.findMovieByTitle(movieTitle);
+        Movie movie = bookingSystemManager.findEventByName(movieTitle);
         if (movie == null) {
             System.out.println("Movie not found.");
             return;
@@ -347,7 +344,7 @@ public class Main {
     // Helper Methods
     private static Theater getTheaterByName(Scanner scanner) {
         String theaterName = getInput(scanner, "Please Enter Theater name: ");
-        Theater theater = bookingSystemManager.findTheaterByName(theaterName);
+        Theater theater = bookingSystemManager.findVenueByName(theaterName);
         if (theater == null) {
             System.out.println("Theater not found.");
         }
@@ -355,7 +352,7 @@ public class Main {
     }
 
     public  static void nowShowingMovies(){
-        bookingSystemManager.displayMoviesAndShows();
+        bookingSystemManager.displayEvent();
     }
 
     private static String getInput(Scanner scanner, String prompt) {
@@ -378,7 +375,7 @@ public class Main {
 
         // Step 1: Get movie details
         String movieTitle = getInput(scanner, "🎬 Please Enter Movie Name: ");
-        Movie movie = bookingSystemManager.findMovieByTitle(movieTitle);
+        Movie movie = bookingSystemManager.findEventByName(movieTitle);
 
         if (movie == null) {
             System.out.println("Movie not found.");
