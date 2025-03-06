@@ -15,14 +15,14 @@ public class Ticket {
         this.price = price;
     }
 
-    public Ticket(User user, Movie movie, Show show, int numSeats) {
+    public Ticket(User user, Event event, Show show, int numSeats) {
     }
 
 
 
     public String getDetails() {
         return "Ticket ID: " + ticketId +
-                "\nMovie: " + show.getMovie().getMovieName() +
+                "\nMovie: " + show.getMovie().getEventName() +
                 "\nTime: " + show.getTime() +
                 "\nSeat: " + seatNumber +
                 "\nPrice: $" + price;

@@ -7,7 +7,7 @@ public class BookingSystemManager implements SystemManager {
     private List<Theater> theaters;
 
     ArrayList<User> userDataList = new ArrayList<>();
-    ArrayList<Movie> movieDataList = new ArrayList<>();
+    ArrayList<Event> movieDataList = new ArrayList<>();
     ArrayList<Theater> theatersDataList = new ArrayList<>();
 
     public BookingSystemManager() {
@@ -47,14 +47,14 @@ public class BookingSystemManager implements SystemManager {
     }
 
     @Override
-    public void addEvent(Movie movie) {
+    public void addEvent(Event movie) {
         movieDataList.add(movie);
-        System.out.println("Movie added: " + movie.getMovieName());
+        System.out.println("Movie added: " + movie.getEventName());
     }
 
     @Override
     public void deleteEvent(String movieName) {
-        boolean isRemoved = movieDataList.removeIf(deleteMovie -> deleteMovie.getMovieName().toLowerCase().contains(movieName.toLowerCase()));
+        boolean isRemoved = movieDataList.removeIf(deleteMovie -> deleteMovie.getEventName().toLowerCase().contains(movieName.toLowerCase()));
         if(isRemoved){
             System.out.println("Movie Removed: " + movieName);
         }else{
@@ -100,9 +100,9 @@ public class BookingSystemManager implements SystemManager {
     }
 
     @Override
-    public Movie findEventByName(String title) {
-        for (Movie movie:movieDataList) {
-            if(movie.getMovieName().toLowerCase().contains(title.toLowerCase())){
+    public Event findEventByName(String title) {
+        for (Event movie:movieDataList) {
+            if(movie.getEventName().toLowerCase().contains(title.toLowerCase())){
                 return movie;
             }
         }

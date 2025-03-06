@@ -43,22 +43,25 @@ public class Theater {
         return totalScreens;
     }
 
-    public List<Show> getShowsForMovie(Movie movie) {
+    public List<Show> getShowsForMovie(Event movie) {
         return movieShows.getOrDefault(movie, new ArrayList<>());
     }
-    public void addMovieShow(Movie movie, Show show) {
+    public void addMovieShow(Movie movie, Show show) { // is this corret  change Movie movie to Event movie
         movieShows.putIfAbsent(movie, new ArrayList<>());
         movieShows.get(movie).add(show);
     }
     public void displayMoviesAndShows() {
-
+        if(movieShows == null || movieShows.isEmpty()){
+            System.out.println("No movies or shows available.");
+            return;
+        }
         // Display all shows for each movie
         System.out.println("\nMovies and Showtimes:");
         for (Map.Entry<Movie, List<Show>> entry : movieShows.entrySet()) {
             Movie movie = entry.getKey();
             List<Show> shows = entry.getValue();
 
-            System.out.println("Movie: " + movie.getMovieName());
+            System.out.println("Movie: " + movie.getEventName());
             for (Show show : shows) {
                 System.out.println("    Screen: " + show.getScreen().getScreenId() +
                         ", Time: " + show.getTime() +

@@ -245,7 +245,7 @@ public class Main {
                 System.out.print("Please enter Description of the movie: ");
                 String description = scanner.nextLine();
 
-                Movie movie = new Movie(movieName,director,genre,language,duration,country,cast,description);
+                Event movie = new Movie(movieName,director,genre,language,duration,country,cast,description);
                 bookingSystemManager.addEvent(movie);
                 bookingSystemManager.displayEvent();
 
@@ -330,14 +330,19 @@ public class Main {
         }
 
         String movieTitle = getInput(scanner, "Enter movie title: ");
-        Movie movie = bookingSystemManager.findEventByName(movieTitle);
-        if (movie == null) {
+        Event event = bookingSystemManager.findEventByName(movieTitle);
+        if (event == null) {
             System.out.println("Movie not found.");
             return;
         }
+        if (!(event instanceof Movie)) {  // Check before casting
+            System.out.println("The event found is not a movie.");
+            return;
+        }
+        Movie movie = (Movie) event;
         String showTime = getInput(scanner, "Enter show time (e.g., 2:00 PM): ");
         Show show = new Show(movie, screen, showTime);
-        theater.addMovieShow(movie, show);
+        theater.addMovieShow(movie,show);
         System.out.println("Show added successfully!");
     }
 
@@ -375,7 +380,7 @@ public class Main {
 
         // Step 1: Get movie details
         String movieTitle = getInput(scanner, "🎬 Please Enter Movie Name: ");
-        Movie movie = bookingSystemManager.findEventByName(movieTitle);
+        Event movie = bookingSystemManager.findEventByName(movieTitle);
 
         if (movie == null) {
             System.out.println("Movie not found.");

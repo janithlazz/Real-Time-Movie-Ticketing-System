@@ -20,6 +20,9 @@ abstract class User implements Serializable{
         this.isLoggedIn = false;
     }
 
+    public User(String email, String name, String password) {
+    }
+
     public void addToBookingHistory(Ticket ticket) {
         bookingHistory.add(ticket);
     }
