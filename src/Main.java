@@ -59,23 +59,23 @@ public class Main {
         scanner.close();
     }
 
-    private static void loginUserToSystem() {
+    private static void loginUserToSystem(Scanner scanner) {
 
         Scanner logUser = new Scanner(System.in);
+        try {
+            System.out.println("Welcome to user Login");
+            System.out.println("Select user type:\n1. Admin\n2. Customer");
+            int userInput = getUserType(scanner);
+            if(userInput == 1) {
 
-        System.out.print("Enter your Name: ");
-        String name = logUser.next();
+                System.out.print("Enter your Name: ");
+                String name = logUser.next();
+                System.out.print("Enter your Password: ");
+                String password = logUser.next();
 
-        System.out.print("Enter your Password: ");
-        String password = logUser.next();
+                bookingSystemManager.loginAdmin(name, password);
 
-
-
-        User loggedInUser = bookingSystemManager.loginUser(name,password);
-        if (loggedInUser != null) {
-            if (loggedInUser instanceof Admin) {
                 System.out.println("Welcome, Admin!");
-                Scanner scanner = new Scanner(System.in);
                 int choice = -1;
                 while (choice != 0){
                     System.out.println("\n--- Admin Menu ---");
@@ -119,10 +119,15 @@ public class Main {
                         System.out.println("An error occurred during process: " + e.getMessage());
                     }
                 }
+            } else if ( userInput == 2) {
+                System.out.print("Enter your Name: ");
+                String name = logUser.next();
 
-            } else if (loggedInUser instanceof Customer){
+                System.out.print("Enter your Password: ");
+                String password = logUser.next();
+                bookingSystemManager.loginCustomer(name, password);
                 System.out.println("Welcome, Customer!");
-                Scanner scanner = new Scanner(System.in);
+
                 int choice = -1;
                 while (choice != 0){
                     System.out.println("\n--- Customer Menu ---");
@@ -147,10 +152,11 @@ public class Main {
                     }
                 }
 
+            } else {
+                System.out.println("Invalid user type selection. Registration aborted.");
             }
-
-        } else {
-            System.out.println("Invalid email or password. Please try again.");
+        }catch (Exception e){
+            System.out.println("An error occurred during registration: " + e.getMessage());
         }
     }
     private static void registration(Scanner scanner) {
@@ -171,9 +177,11 @@ public class Main {
             String password = scanner.nextLine();
 
 
-            if(userInput == 1 || userInput == 2) {
-                bookingSystemManager.registerUser(name, email, password, userInput);
-            }else {
+            if(userInput == 1) {
+                bookingSystemManager.registerAdmin(name, email, password);
+            } else if ( userInput == 2) {
+                bookingSystemManager.registerCustomer(name, email, password);
+            } else {
                 System.out.println("Invalid user type selection. Registration aborted.");
             }
         }catch (Exception e){
@@ -374,7 +382,7 @@ public class Main {
 
     }
 
-    public static void bookTicket(User user) {
+    public static void bookTicket(User<User> user) {
         System.out.println("Welcome to the Ticket Booking System");
         Scanner scanner = new Scanner(System.in);
 
