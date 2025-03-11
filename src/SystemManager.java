@@ -1,10 +1,13 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface SystemManager {
-    void registerUser(String name, String email, String password, int userInputType);
+    void registerAdmin(String name, String email, String password);
+    void registerCustomer(String name, String email, String password);
     void removeUser(String userID);
-    User loginUser (String userID , String password);
+
+    Admin loginAdmin(String name, String password);
+    Customer loginCustomer(String name, String password);
+
     void  addEvent(Event event);
     void  deleteEvent(String movieName);
     void  addVenue(String theaterName, String location, int totalScreens);

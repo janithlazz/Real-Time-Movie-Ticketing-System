@@ -1,12 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class BookingSystemManager implements SystemManager {
     private List<Theater> theaters;
 
-    ArrayList<User> userDataList = new ArrayList<>();
+    ArrayList<Admin> AdminDataList = new ArrayList<Admin>();
+    ArrayList<Customer> customerDataList = new ArrayList<Customer>();
     ArrayList<Event> movieDataList = new ArrayList<>();
     ArrayList<Theater> theatersDataList = new ArrayList<>();
 
@@ -16,18 +16,25 @@ public class BookingSystemManager implements SystemManager {
     }
 
     @Override
-    public void registerUser(String name, String email, String password, int userInputType) {
-        for(User user : userDataList){
-            if(user.authenticate(email)){
+    public void registerAdmin(String name, String email, String password) {
+        for(Admin adminUser : AdminDataList){
+            if(adminUser.getName().equals(name) && adminUser.getEmail().equals(email)){
                 System.out.println("Registration failed, email already exists");
                 return;
             }
         }
-        if(userInputType == 1){
-            userDataList.add(new Admin(name,email,password));
-        } else if (userInputType == 2) {
-            userDataList.add(new Customer(name,email,password));
+        AdminDataList.add(new Admin(name,email,password));
+    }
+
+    @Override
+    public void registerCustomer(String name, String email, String password) {
+        for(Customer CustomerUser : customerDataList){
+            if(CustomerUser.getName().equals(name) && CustomerUser.getEmail().equals(email)){
+                System.out.println("Registration failed, email already exists");
+                return;
+            }
         }
+        customerDataList.add(new Customer(name,email,password));
     }
 
     @Override
@@ -35,16 +42,32 @@ public class BookingSystemManager implements SystemManager {
 
     }
 
-    public User loginUser(String userID , String password) {
-        for (User existingUser : userDataList) {
-            if (existingUser.authenticate(userID,password)) {
-                existingUser.login();
-                return existingUser;
+    @Override
+    public Admin loginAdmin(String name, String password) {
+        for (Admin existingAdmin : AdminDataList) {
+            if (existingAdmin.getName().equals(name) && existingAdmin.getPassword().equals(password))
+            {
+                existingAdmin.login();
+                return existingAdmin;
             }
         }
         System.out.println("Invalid email or password.");
         return null;
     }
+
+    @Override
+    public Customer loginCustomer(String name, String password) {
+        for (Customer existingCustomer : customerDataList) {
+            if (existingCustomer.getName().equals(name) && existingCustomer.getPassword().equals(password))
+            {
+                existingCustomer.login();
+                return existingCustomer;
+            }
+        }
+        System.out.println("Invalid email or password.");
+        return null;
+    }
+
 
     @Override
     public void addEvent(Event movie) {
@@ -131,7 +154,7 @@ public class BookingSystemManager implements SystemManager {
     public void saveUser(String s) throws IOException {
         FileOutputStream f_out = new FileOutputStream("userLogins.txt");
         ObjectOutputStream out = new ObjectOutputStream(f_out);
-        for (User user:userDataList) {
+        for (User<User> user:userDataList) {
             System.out.println(user.name+" User name save successfully");
             out.writeObject(user);
         }
@@ -145,7 +168,7 @@ public class BookingSystemManager implements SystemManager {
         ObjectInputStream out = new ObjectInputStream(f_input);
         for(; ;){
             try {
-                User user = (User) out.readObject();
+                User<User> user = (User<User>) out.readObject();
                 userDataList.add(user);
                 System.out.println(user);
             } catch (EOFException | ClassNotFoundException e) {
