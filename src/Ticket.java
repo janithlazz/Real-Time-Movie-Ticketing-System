@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class Ticket {
     private String ticketId;
     private Show show; // Reference to the Show
@@ -15,7 +13,7 @@ public class Ticket {
         this.price = price;
     }
 
-    public Ticket(User user, Event event, Show show, int numSeats) {
+    public Ticket(User<User> user, Event event, Show show, int numSeats) {
     }
 
 
