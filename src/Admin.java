@@ -9,6 +9,4 @@ public class Admin extends User<User> {
     public boolean isAdmin(){
         return  true;
     }
-
-
 }
