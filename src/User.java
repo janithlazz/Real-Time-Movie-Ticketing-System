@@ -6,32 +6,30 @@ abstract class User<A extends User> implements Serializable{
     protected String name;
     protected String email;
     protected String password;
-    protected boolean isLoggedIn;
+//    protected boolean isLoggedIn;
     protected List<Ticket> bookingHistory;
 
 
-    public User(String name, String email, String password, boolean isLoggedIn) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.isLoggedIn = false;
+//        this.isLoggedIn = false;
     }
 
-    public User(String email, String name, String password) {
-    }
 
     public void addToBookingHistory(Ticket ticket) {
         bookingHistory.add(ticket);
     }
 
-    public void login(){
-        System.out.println(name + "logged in successfully.");
-        isLoggedIn = true;
-    }
-    public void logout(){
-        System.out.println(name + "logout out successfully.");
-        isLoggedIn = false;
-    }
+//    public void login(){
+//        System.out.println(name + "logged in successfully.");
+//        isLoggedIn = true;
+//    }
+//    public void logout(){
+//        System.out.println(name + "logout out successfully.");
+//        isLoggedIn = false;
+//    }
 
     public String getName() {
         return name;

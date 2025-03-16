@@ -34,11 +34,13 @@ public class Main {
                             System.out.println("User registered successfully!");
                             break;
                         case 3: // Registration option
-                            fileWrite();
+                            adminFileWrite();
+                            customerFileWrite();
                             System.out.println("Save user successfully!");
                             break;
                         case 4: // Registration option
-                            fileRead();
+                            adminFileRead();
+                            customerFileRead();
                             System.out.println(" Load user data successfully!");
                             break;
                         case 5: // Show currently showing films on theaters option
@@ -58,102 +60,43 @@ public class Main {
 
         scanner.close();
     }
-
-    private static void loginUserToSystem(Scanner scanner) {
-
+    private static void loginUserToSystem() {
         Scanner logUser = new Scanner(System.in);
+        System.out.println("Welcome to user Login");
+        int userInput = getUserType(logUser);
         try {
-            System.out.println("Welcome to user Login");
-            System.out.println("Select user type:\n1. Admin\n2. Customer");
-            int userInput = getUserType(scanner);
             if(userInput == 1) {
 
                 System.out.print("Enter your Name: ");
                 String name = logUser.next();
+
                 System.out.print("Enter your Password: ");
                 String password = logUser.next();
 
-                bookingSystemManager.loginAdmin(name, password);
-
-                System.out.println("Welcome, Admin!");
-                int choice = -1;
-                while (choice != 0){
-                    System.out.println("\n--- Admin Menu ---");
-                    System.out.println("1. Add Movie");
-                    System.out.println("2. Delete Movie");
-                    System.out.println("3. Add Theater");
-                    System.out.println("4. Delete Theater");
-                    System.out.println("5. Add Screen to Theater");
-                    System.out.println("6. Add Show to Theater screen");
-                    System.out.println("0. Main manu");
-                    try {
-                        choice = scanner.nextInt();
-                        scanner.nextLine();
-                        switch (choice) {
-                            case 1:
-                                addMovie(scanner);
-                                break;
-                            case 2:
-                                deleteMovie(scanner);
-                                break;
-                            case 3:
-                                addTheater(scanner);
-                                break;
-                            case 4:
-                                deleteTheater(scanner);
-                                break;
-                            case 5:
-                                addScreenToTheater();
-                                break;
-                            case 6:
-                                addShowToScreen();
-                                break;
-                            case 0:
-                                System.out.println("Returning to the main menu...");
-                                break;
-                            default:
-                                System.out.println("Invalid choice. Please try again.");
-                        }
-                    }
-                    catch (Exception e){
-                        System.out.println("An error occurred during process: " + e.getMessage());
-                    }
+                Admin logAdmin = bookingSystemManager.loginAdmin(name, password);
+                if (logAdmin != null){
+                    System.out.println("Login successful! Welcome, " + logAdmin.getName());
+                }else {
+                    System.out.println("Invalid credentials. Please try again.");
                 }
+
             } else if ( userInput == 2) {
                 System.out.print("Enter your Name: ");
                 String name = logUser.next();
 
                 System.out.print("Enter your Password: ");
                 String password = logUser.next();
-                bookingSystemManager.loginCustomer(name, password);
-                System.out.println("Welcome, Customer!");
 
-                int choice = -1;
-                while (choice != 0){
-                    System.out.println("\n--- Customer Menu ---");
-                    System.out.println("1. Book Ticket");
-                    System.out.println("0. Main manu");
-                    try {
-                        choice = scanner.nextInt();
-                        scanner.nextLine();
-                        switch (choice) {
-                            case 1:
-//                                bookTicket(user);
-                                break;
-                            case 0:
-                                System.out.println("Returning to the main menu...");
-                                break;
-                            default:
-                                System.out.println("Invalid choice. Please try again.");
-                        }
-                    }
-                    catch (Exception e){
-                        System.out.println("An error occurred during process: " + e.getMessage());
-                    }
+                Customer logCustomer = bookingSystemManager.loginCustomer(name, password);
+                if(logCustomer != null){
+                    System.out.println("Login successful! Welcome, " + logCustomer.getName());
+                }else{
+                    System.out.println("Invalid credentials. Please try again.");
                 }
 
-            } else {
-                System.out.println("Invalid user type selection. Registration aborted.");
+            }else {
+                System.out.println("Incorrect Input please Try Again!");
+                System.out.println("------------------------------");
             }
         }catch (Exception e){
             System.out.println("An error occurred during registration: " + e.getMessage());
@@ -373,13 +316,17 @@ public class Main {
         return scanner.nextLine();
     }
 
-    public static void fileWrite() throws IOException {
-        bookingSystemManager.saveUser("userLogins.txt");
-
+    public static void adminFileWrite() throws IOException {
+        bookingSystemManager.saveAdmin("userAdminLogins.txt");
     }
-    public static void fileRead() throws IOException {
-        bookingSystemManager.readUser("userLogins.txt");
-
+    public static void customerFileWrite() throws IOException {
+        bookingSystemManager.saveCustomer("userCustomerLogins.txt");
+    }
+    public static void adminFileRead() throws IOException {
+        bookingSystemManager.readAdminUser("userAdminLogins.txt");
+    }
+    public static void customerFileRead() throws IOException {
+        bookingSystemManager.readCustomerUser("userCustomerLogins.txt");
     }
 
     public static void bookTicket(User<User> user) {
@@ -411,7 +358,7 @@ public class Main {
         }
 
         // Step 4: Select show time
-        System.out.println("Available Showtimes:");
+        System.out.println("Available Showtime:");
         List<Show> availableShows = theater.getShowsForMovie(movie);
         if (availableShows.isEmpty()) {
             System.out.println("No available shows for this movie.");
