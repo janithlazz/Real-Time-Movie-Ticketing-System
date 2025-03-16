@@ -10,6 +10,7 @@ public class BookingSystemManager implements SystemManager {
     ArrayList<Event> movieDataList = new ArrayList<>();
     ArrayList<Theater> theatersDataList = new ArrayList<>();
 
+
     public BookingSystemManager() {
         // Initialize the list to avoid null pointer exceptions
         theaters = new ArrayList<>();
@@ -17,14 +18,16 @@ public class BookingSystemManager implements SystemManager {
 
     @Override
     public void registerAdmin(String name, String email, String password) {
-        for(Admin adminUser : AdminDataList){
-            if(adminUser.getName().equals(name) && adminUser.getEmail().equals(email)){
+        for (Admin adminUser : AdminDataList) {
+            if (adminUser.getName() != null && adminUser.getEmail() != null &&
+                    adminUser.getName().equals(name) && adminUser.getEmail().equals(email)) {
                 System.out.println("Registration failed, email already exists");
                 return;
             }
         }
-        AdminDataList.add(new Admin(name,email,password));
+        AdminDataList.add(new Admin(name, email, password));
     }
+
 
     @Override
     public void registerCustomer(String name, String email, String password) {
@@ -47,11 +50,10 @@ public class BookingSystemManager implements SystemManager {
         for (Admin existingAdmin : AdminDataList) {
             if (existingAdmin.getName().equals(name) && existingAdmin.getPassword().equals(password))
             {
-                existingAdmin.login();
+//                existingAdmin.login();
                 return existingAdmin;
             }
         }
-        System.out.println("Invalid email or password.");
         return null;
     }
 
@@ -60,11 +62,10 @@ public class BookingSystemManager implements SystemManager {
         for (Customer existingCustomer : customerDataList) {
             if (existingCustomer.getName().equals(name) && existingCustomer.getPassword().equals(password))
             {
-                existingCustomer.login();
+//                existingCustomer.login();
                 return existingCustomer;
             }
         }
-        System.out.println("Invalid email or password.");
         return null;
     }
 
@@ -151,11 +152,22 @@ public class BookingSystemManager implements SystemManager {
         }
     }
 
-    public void saveUser(String s) throws IOException {
-        FileOutputStream f_out = new FileOutputStream("userLogins.txt");
+    public void saveAdmin(String s) throws IOException {
+        FileOutputStream f_out = new FileOutputStream("userAdminLogins.txt");
         ObjectOutputStream out = new ObjectOutputStream(f_out);
-        for (User<User> user:userDataList) {
-            System.out.println(user.name+" User name save successfully");
+        for (Admin user:AdminDataList) {
+            System.out.println(user.getName()+" Admin name save successfully");
+            out.writeObject(user);
+        }
+        out.flush();
+        f_out.close();
+        out.close();
+    }
+    public void saveCustomer(String s) throws IOException {
+        FileOutputStream f_out = new FileOutputStream("userCustomerLogins.txt");
+        ObjectOutputStream out = new ObjectOutputStream(f_out);
+        for (Customer user:customerDataList) {
+            System.out.println(user.name+" Customer name save successfully");
             out.writeObject(user);
         }
         out.flush();
@@ -163,13 +175,26 @@ public class BookingSystemManager implements SystemManager {
         out.close();
     }
 
-    public void readUser(String s) throws IOException {
-        FileInputStream f_input = new FileInputStream("userLogins.txt");
+    public void readAdminUser(String s) throws IOException {
+        FileInputStream f_input = new FileInputStream("userAdminLogins.txt");
         ObjectInputStream out = new ObjectInputStream(f_input);
         for(; ;){
             try {
-                User<User> user = (User<User>) out.readObject();
-                userDataList.add(user);
+                Admin user = (Admin) out.readObject();
+                AdminDataList.add(user);
+                System.out.println(user);
+            } catch (EOFException | ClassNotFoundException e) {
+                break;
+            }
+        }
+    }
+    public void readCustomerUser(String s) throws IOException {
+        FileInputStream f_input = new FileInputStream("userCustomerLogins.txt");
+        ObjectInputStream out = new ObjectInputStream(f_input);
+        for(; ;){
+            try {
+                Customer user = (Customer) out.readObject();
+                customerDataList.add(user);
                 System.out.println(user);
             } catch (EOFException | ClassNotFoundException e) {
                 break;
@@ -177,12 +202,6 @@ public class BookingSystemManager implements SystemManager {
         }
     }
 
-    @Override
-    public String toString() {
-        return "BookingSystemManager{" +
-                ", theaters=" + theaters +
-                ", userDataList=" + userDataList +
-                '}';
-    }
+
 
 }
