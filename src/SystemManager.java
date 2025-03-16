@@ -17,8 +17,11 @@ public interface SystemManager {
     Event findEventByName(String title);
 
     void displayEvent();
-    void saveUser(String s) throws IOException;
-    void readUser(String s) throws IOException;
+    void saveAdmin(String s) throws IOException;
+    void saveCustomer(String s) throws IOException;
+
+    void readAdminUser (String s) throws  IOException;
+    void readCustomerUser (String s) throws  IOException;
 
 
 }
